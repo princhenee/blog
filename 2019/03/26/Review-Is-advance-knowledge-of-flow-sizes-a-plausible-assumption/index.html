@@ -96,23 +96,25 @@
 
 
 
-  <meta name="description" content="stay hungry stay foolish">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ge Chen&#39;s Blog">
-<meta property="og:url" content="https://princhenee.github.io/blog/index.html">
+  <meta name="description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
+<meta name="keywords" content="NSDI,Flow Scheduling">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Review - Is advance knowledge of flow sizes a plausible assumption?">
+<meta property="og:url" content="https://princhenee.github.io/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/index.html">
 <meta property="og:site_name" content="Ge Chen&#39;s Blog">
-<meta property="og:description" content="stay hungry stay foolish">
+<meta property="og:description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-03-27T03:01:42.138Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ge Chen&#39;s Blog">
-<meta name="twitter:description" content="stay hungry stay foolish">
+<meta name="twitter:title" content="Review - Is advance knowledge of flow sizes a plausible assumption?">
+<meta name="twitter:description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
 
 
 
 
 
 
-  <link rel="canonical" href="https://princhenee.github.io/blog/">
+  <link rel="canonical" href="https://princhenee.github.io/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/">
 
 
 
@@ -122,7 +124,7 @@
   };
 </script>
 
-  <title>Ge Chen's Blog</title>
+  <title>Review - Is advance knowledge of flow sizes a plausible assumption? | Ge Chen's Blog</title>
   
 
 
@@ -170,8 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -288,9 +289,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -322,10 +323,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/" class="post-title-link" itemprop="url">Review - Is advance knowledge of flow sizes a plausible assumption?</a>
+          <h1 class="post-title" itemprop="name headline">Review - Is advance knowledge of flow sizes a plausible assumption?
+
               
             
           </h1>
@@ -419,22 +418,23 @@
       
 
       
-        
-          
-            <p>
-              Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics can achieve high estimation precision and the partial knowledgeaquired by FLUX can benefit a number o
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
+        <h3 id="Summary-the-paper"><a href="#Summary-the-paper" class="headerlink" title="Summary the paper"></a>Summary the paper</h3><p>This work presents FLUX, a framework applying both simple heuristics and machine<br>learning methods to estimate the flows’ sizes in advance. Evaluations show that<br>even simple heuristics can achieve high estimation precision and the partial knowledge<br>aquired by FLUX can benefit a number of flow scheduling for data center networks.</p>
+<h3 id="What-motivates-the-work"><a href="#What-motivates-the-work" class="headerlink" title="What motivates the work"></a>What motivates the work</h3><p>To better achieve SLAs in data center networks, a number of flow scheduling mechanisms<br>have been proposed. Among these works, some (e.g. pFabric, PDQ, D3, FastPass, pHost,<br>Homa, Varys) assume the full knowledge of flow/coflow sizes, while others (e.g. PIAS,<br>Aalo) schedule flows without such knowledge, claiming to sacrifice certain performance<br>to benefit and scale deployment.</p>
+<p>This work starts by questioning whether flow sizes can be known in advance in practice.<br>Based on the partial knowledge, authors also study the performance gain in the aspect<br>of flow scheduling policy. They argue that flow size estimation can guide scheduler<br>designs with partial knowledge settings and also help measure the efficiency budget.</p>
+<h3 id="How-FLUX-works"><a href="#How-FLUX-works" class="headerlink" title="How FLUX works"></a>How FLUX works</h3><p>After comparing existing solutions (e.g. flow aging, tcp buffer occupancy, system call<br>monitoring), FLUX chooses to learn flow sizes from past traces. The reason is that<br>a majority of jobs running in data center network are periodic and thus have predictable<br>patterns. The challenge is how to get estimation within a short timescale (microsecond).</p>
+<p>FLUX gathers a set of campus-scale workloads (Apache Tomcat server, TensorFlow, PageRank,<br>Spark) as traces. Taking features such as start time, flow gap, CPU, Disk I/O, Memory<br>I/O, FLUX learns flow size models by several ML models (RNN, GBDT). The authors claim<br>that these learning results achieve good precision. By applying the knowledge to<br>scheduler, average mean FCTs can be reduced. This work also mention a counter-intuitive<br>fact that the knowledge of flow sizes does not always improve performance. That is to<br>say, sometimes the higher percentage of knowledge predicted, the worse performance.</p>
+<h3 id="Strengths"><a href="#Strengths" class="headerlink" title="Strengths"></a>Strengths</h3><ul>
+<li>In-depth critical analysis on existing work</li>
+<li>Detailed implementation/tests (self-generated campus traces, full comparisons)</li>
+</ul>
+<h3 id="Weaknesses"><a href="#Weaknesses" class="headerlink" title="Weaknesses"></a>Weaknesses</h3><ul>
+<li>the theoritical part is not coherent</li>
+<li>feature selection unclear, are the features normalized or not</li>
+<li>limited use only in periodic job patterns, cannot handle bursts</li>
+<li>mean FCT is not a good indicator, please check the tail (99th) FCT</li>
+</ul>
+<p>Ref: <a href="https://www.usenix.org/conference/nsdi19/presentation/dukic" target="_blank" rel="noopener">Is advance knowledge of flow sizes a plausible assumption? </a></p>
+
       
     </div>
 
@@ -455,167 +455,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/03/25/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Chen">
-      <meta itemprop="description" content="stay hungry stay foolish">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ge Chen's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/03/25/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-03-25 14:57:03" itemprop="dateCreated datePublished" datetime="2019-03-25T14:57:03+08:00">2019-03-25</time>
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/blog/tags/NSDI/" rel="tag"># NSDI</a>
           
-            
-            
+            <a href="/blog/tags/Flow-Scheduling/" rel="tag"># Flow Scheduling</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-            <p>
-              Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post$ hexo new "My New Post"
-More info: Writing
-Run server$ hexo server
-More info
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/blog/2019/03/25/hello-world/#more" rel="contents">
-                Read more &raquo;
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/03/25/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
+            
+          </div>
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -625,14 +496,15 @@ More info
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -652,8 +524,17 @@ More info
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -748,6 +629,23 @@ More info
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary-the-paper"><span class="nav-text">Summary the paper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-motivates-the-work"><span class="nav-text">What motivates the work</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-FLUX-works"><span class="nav-text">How FLUX works</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strengths"><span class="nav-text">Strengths</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weaknesses"><span class="nav-text">Weaknesses</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -881,6 +779,10 @@ More info
 
 
   
+  <script src="/blog/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -896,6 +798,8 @@ More info
 
   
 
+
+  
 
 
   
