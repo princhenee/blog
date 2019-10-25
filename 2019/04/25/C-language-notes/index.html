@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Pointer and Array123int a[10];int *pa;pa = a; pa and a have identical values. Since the name of an array is a synonymfor the location of the initial element. In evaluating a[i], C convertsit to *(a+i)">
+<meta name="keywords" content="Programming,C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C language notes">
+<meta property="og:url" content="https://princhenee.github.io/blog/2019/04/25/C-language-notes/index.html">
+<meta property="og:site_name" content="Ge Chen&#39;s Blog">
+<meta property="og:description" content="Pointer and Array123int a[10];int *pa;pa = a; pa and a have identical values. Since the name of an array is a synonymfor the location of the initial element. In evaluating a[i], C convertsit to *(a+i)">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-12T07:56:51.397Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C language notes">
+<meta name="twitter:description" content="Pointer and Array123int a[10];int *pa;pa = a; pa and a have identical values. Since the name of an array is a synonymfor the location of the initial element. In evaluating a[i], C convertsit to *(a+i)">
+
+
+
+
+
+
+  <link rel="canonical" href="https://princhenee.github.io/blog/2019/04/25/C-language-notes/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>C language notes | Ge Chen's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ge Chen's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/04/25/C-language-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Chen">
+      <meta itemprop="description" content="stay hungry stay foolish">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ge Chen's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C language notes
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-25 14:40:52" itemprop="dateCreated datePublished" datetime="2019-04-25T14:40:52+08:00">2019-04-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-12 15:56:51" itemprop="dateModified" datetime="2019-10-12T15:56:51+08:00">2019-10-12</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Pointer-and-Array"><a href="#Pointer-and-Array" class="headerlink" title="Pointer and Array"></a>Pointer and Array</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> *pa;</span><br><span class="line">pa = a;</span><br></pre></td></tr></table></figure>
+<p><em>pa</em> and <em>a</em> have identical values. Since the name of an array is a synonym<br>for the location of the initial element. In evaluating <em>a[i]</em>, C converts<br>it to *(a+i) immediately; the two forms are equivalent.<br><a id="more"></a><br>There is one difference between an array name and a pointer: a pointer is<br>a variable, so <em>pa=a</em> and <em>pa++</em> are legal. But an array name is not a<br>variable; constructions like <em>a=pa</em> and <em>a++</em> are <strong>illegal</strong>.</p>
+<p>When an array name is passed to a function, what is passed is the location<br>of the initial element. Within the funciton call, this argument is a local<br>variable, and so an array name parameter is a pointer, that is, a variable<br>containing an address.</p>
+<h3 id="Pointers-to-Functions"><a href="#Pointers-to-Functions" class="headerlink" title="Pointers to Functions"></a>Pointers to Functions</h3><p>In C, a function itself is not a variable, but it is possible to define<br>pointers to functions, which can be assigned, placed in arrays, passed to<br>functions, returned by functions, and so on. The following is a pointer<br>to function <em>comp</em> in quick sort an array of strings <em>v</em>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* qsort: sort v[left]...v[right] into increasing order */</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">qsort (<span class="keyword">void</span> *v[], <span class="keyword">int</span> left, <span class="keyword">int</span> right,</span><br><span class="line">            <span class="keyword">int</span> (*comp)(<span class="keyword">void</span> *, <span class="keyword">void</span> *))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (v == <span class="literal">NULL</span> || left &gt;= right)    <span class="comment">/* do nothing if array contains  */</span></span><br><span class="line">        <span class="keyword">return</span>;                        <span class="comment">/* no or fewer than two elements */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i, last;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">void</span> *v[], <span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    swap(v, left, (left + right)/<span class="number">2</span>);</span><br><span class="line">    last = left;</span><br><span class="line">    <span class="keyword">for</span> (i = left+<span class="number">1</span>; i &lt;= right; i++)</span><br><span class="line">        <span class="keyword">if</span> ((*comp)(v[i], v[left]) &lt; <span class="number">0</span>)</span><br><span class="line">            swap(v, ++last, i);</span><br><span class="line">    swap(v, left, last);</span><br><span class="line">    qsort(v, left, last<span class="number">-1</span>, comp);</span><br><span class="line">    qsort(v, last+<span class="number">1</span>, right, comp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">swap(<span class="keyword">void</span> *v[], <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">void</span> *temp;</span><br><span class="line"> </span><br><span class="line">    temp = v[i];</span><br><span class="line">    v[i] = v[j];</span><br><span class="line">    v[j] = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Struct"><a href="#Struct" class="headerlink" title="Struct"></a>Struct</h3><p>Don’t assume the size of a structure is the sum of the sum of the size of the<br>structure. Because of alignment requirements for different objects, there may<br>be unnamed “holes” in a structure. Thus, for instance, the following struct:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sizeof (A) is 8.</p>
+<p>Here is an example using struct to build a binary search tree (BST), which can<br>be used to the more general problem of counting the occurrences of all the words<br>in some input.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctype.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXWORD 100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tnode</span> *<span class="title">Treeptr</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tnode</span> &#123;</span>      <span class="comment">/* the tree node */</span></span><br><span class="line">    <span class="keyword">char</span> *word;             <span class="comment">/* points to the text */</span></span><br><span class="line">    <span class="keyword">int</span> count;              <span class="comment">/* number of occurences */</span></span><br><span class="line">    Treeptr left;           <span class="comment">/* left child */</span></span><br><span class="line">    Treeptr right;          <span class="comment">/* right child */</span></span><br><span class="line">&#125; Treenode;</span><br><span class="line"></span><br><span class="line"><span class="function">Treeptr <span class="title">addtree</span><span class="params">(Treeptr, <span class="keyword">char</span> *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treeprint</span><span class="params">(Treeptr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getword</span><span class="params">(<span class="keyword">char</span> *, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* word frequency count */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Treeptr root;</span><br><span class="line">    <span class="keyword">char</span> word[MAXWORD];</span><br><span class="line"></span><br><span class="line">    root = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span> (getword(word, MAXWORD) != EOF)</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isalpha</span>(word[<span class="number">0</span>]))</span><br><span class="line">            root = addtree(root, word);</span><br><span class="line">    treeprint(root);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">Treeptr <span class="title">talloc</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strdup</span><span class="params">(<span class="keyword">char</span> *)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* addtree: add a node with w, at or below p */</span></span><br><span class="line"><span class="function">Treeptr <span class="title">addtree</span><span class="params">(Treeptr p, <span class="keyword">char</span> *w)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cond;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == p) &#123;    <span class="comment">/* a new word has arrived */</span></span><br><span class="line">        p == talloc();  <span class="comment">/* make a new node */</span></span><br><span class="line">        p-&gt;word = strdup(w);</span><br><span class="line">        p-&gt;count = <span class="number">1</span>;</span><br><span class="line">        p-&gt;left = p-&gt;right = <span class="literal">NULL</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((cond = <span class="built_in">strcmp</span>(w, p-&gt;word)) == <span class="number">0</span>)</span><br><span class="line">        p-&gt;count ++;    <span class="comment">/* repeated word */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (cond &lt; <span class="number">0</span>)  <span class="comment">/* less than into left subtree */</span></span><br><span class="line">        p-&gt;left = addtree(p-&gt;left, w);</span><br><span class="line">    <span class="keyword">else</span>                <span class="comment">/* less than into left subtree */</span></span><br><span class="line">        p-&gt;right = addtree(p-&gt;right, w);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* treeprint: in-order print of tree p */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treeprint</span><span class="params">(Treeptr p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> != p) &#123;</span><br><span class="line">        treeprint(p-&gt;left);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%4d %s\n"</span>, p-&gt;count, p-&gt;word);</span><br><span class="line">        treeprint(p-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* talloc: make a tnode */</span></span><br><span class="line"><span class="function">Treeptr <span class="title">talloc</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (Treeptr) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Treenode));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* strdup: make a duplicate of s */</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> * <span class="title">strdup</span><span class="params">(<span class="keyword">char</span> *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *p;</span><br><span class="line">    p = (<span class="keyword">char</span> *) <span class="built_in">malloc</span>(<span class="built_in">strlen</span>(s) + <span class="number">1</span>);  <span class="comment">/* +1 for '\0' */</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> != p)</span><br><span class="line">        <span class="built_in">strcpy</span>(p, s);</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="union"><a href="#union" class="headerlink" title="union"></a>union</h5><p>A <em>union</em> is a variable that may hold (at different times) objects of different<br>types and sizes, with the compiler keeping track of size and alignment require-<br>ments.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> u_tag &#123;</span><br><span class="line">    <span class="keyword">int</span> ival;</span><br><span class="line">    <span class="keyword">float</span> fval;</span><br><span class="line">    <span class="keyword">char</span> *sval;</span><br><span class="line">&#125; u;</span><br></pre></td></tr></table></figure>
+<p>In effect, a union is a structure in which all members have offset zero from the<br>base, the structure is big enough to hold the “widest” member, and the alignment<br>is appropriate for all types in the union. The same operations are permitted on<br>unions as on structures: assignment to or copying as a unit, taking the address,<br>and accessing a member.</p>
+<p>A union may only be initialized with a value of the type of its first member;<br>thus the union <em>u</em> described above can only be initialized with an integer value.</p>
+<h3 id="Unix-System-Interface"><a href="#Unix-System-Interface" class="headerlink" title="Unix System Interface"></a>Unix System Interface</h3><p>When the command interpreter (the “shell”) runs a program, three files are open,<br>the file discriptors 0, 1, and 2 called the STDIN, STDOUT, STDERR. If a program<br>reads 0 and writes 1 and 2, it can do input and output without worring about<br>opening files.</p>
+<h5 id="Low-level-I-O-example"><a href="#Low-level-I-O-example" class="headerlink" title="Low level I/O example"></a>Low level I/O example</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"syscalls.h"</span></span></span><br><span class="line"></span><br><span class="line">main () <span class="comment">/* copy input to output */</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> buf[BUFSIZ];</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ((n = read(<span class="number">0</span>, buf, BUFSIZ)) &gt; <span class="number">0</span>)</span><br><span class="line">        write(<span class="number">1</span>, buf, n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* getchar: simple buffered version */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getchar</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> buf[BUFSIZ];</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> *bufp = buf;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">        n = read(<span class="number">0</span>, buf, <span class="keyword">sizeof</span> buf);</span><br><span class="line">        bufp = buf;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (--n &gt;=<span class="number">0</span>) ? (<span class="keyword">unsigned</span> <span class="keyword">char</span>) *bufp++ : EOF;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Open-Creat-Close-Unlink"><a href="#Open-Creat-Close-Unlink" class="headerlink" title="Open, Creat, Close, Unlink"></a>Open, Creat, Close, Unlink</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"syscalls.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PERMS 0666    <span class="comment">/* RW for owner, group, others */</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">error</span><span class="params">(<span class="keyword">char</span> *, ...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* cp: copy f1 to f2 */</span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> f1, f2, n;</span><br><span class="line">    <span class="keyword">char</span> buf[BUFSIZ];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">3</span>)</span><br><span class="line">        error(<span class="string">"Usage: cp from to"</span>);</span><br><span class="line">    <span class="keyword">if</span> ((f1 = open(argv[<span class="number">1</span>], O_RDONLY, <span class="number">0</span>)) == <span class="number">-1</span>)</span><br><span class="line">        error(<span class="string">"cp: can't open %s"</span>, argv[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">if</span> ((f2 = creat(argv[<span class="number">2</span>], PERMS)) == <span class="number">-1</span>)</span><br><span class="line">        error(<span class="string">"cp: can't create %s, mode %03o"</span>,</span><br><span class="line">            argv[<span class="number">2</span>], PERMS);</span><br><span class="line">    <span class="keyword">while</span> ((n = read(f1, buf, BUFSIZ)) &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">if</span> (write(f2, buf, n) != n)</span><br><span class="line">            error(<span class="string">"cp: write error on file %s"</span>, argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* error: print an error mesage and die */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">error</span><span class="params">(<span class="keyword">char</span> *fmt, ...)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    va_list args;</span><br><span class="line"></span><br><span class="line">    va_start(args, fmt);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"error: "</span>);</span><br><span class="line">    <span class="built_in">vfprintf</span>(<span class="built_in">stderr</span>, fmt, args);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"\n"</span>);</span><br><span class="line">    va_end(args);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank" rel="noopener">The C Programming language</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Programming/" rel="tag"># Programming</a>
+          
+            <a href="/blog/tags/C/" rel="tag"># C</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/04/08/Technical-Links/" rel="next" title="Technical Links">
+                <i class="fa fa-chevron-left"></i> Technical Links
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/05/11/Examples-of-Unix-System-Interface-Implementation/" rel="prev" title="Examples of Unix System Interface Implementation">
+                Examples of Unix System Interface Implementation <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Chen</p>
+              <div class="site-description motion-element" itemprop="description">stay hungry stay foolish</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/blog/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/princhenee" title="GitHub &rarr; https://github.com/princhenee" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pointer-and-Array"><span class="nav-text">Pointer and Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pointers-to-Functions"><span class="nav-text">Pointers to Functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Struct"><span class="nav-text">Struct</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#union"><span class="nav-text">union</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#Unix-System-Interface"><span class="nav-text">Unix System Interface</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Low-level-I-O-example"><span class="nav-text">Low level I/O example</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Open-Creat-Close-Unlink"><span class="nav-text">Open, Creat, Close, Unlink</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Chen</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/blog/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/blog/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/blog/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/blog/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

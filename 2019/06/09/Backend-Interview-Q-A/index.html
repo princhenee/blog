@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="Cache KV-direct NetCache  Consistancy NetChain NetPaxos  Packet/Flow Scheduling PIFO Domino">
-<meta name="keywords" content="Sigcomm,NSDI,SOSP,HotCloud">
+  <meta name="description" content="C++ Static 关键字的作用 static修饰函数内变量 static修饰的变量分配在静态存储区，在程序整个运行期间都不释放 static局部变量在初次运行时进行初始化工作，且只初始化一次   static修饰函数外变量/函数 用来表示不能被其它文件访问的全局变量和函数   static修饰数据成员 静态数据成员实际上是类域中的全局变量，这种数据成员的生存期大于类的对象 静态数据成员每个类有">
+<meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Survey: Network Application&#x2F;Protocol Offloading">
-<meta property="og:url" content="https://princhenee.github.io/blog/2019/03/28/Survey-Network-Application-Protocol-Offloading/index.html">
+<meta property="og:title" content="Backend Interview Q&amp;A">
+<meta property="og:url" content="https://princhenee.github.io/blog/2019/06/09/Backend-Interview-Q-A/index.html">
 <meta property="og:site_name" content="Ge Chen&#39;s Blog">
-<meta property="og:description" content="Cache KV-direct NetCache  Consistancy NetChain NetPaxos  Packet/Flow Scheduling PIFO Domino">
+<meta property="og:description" content="C++ Static 关键字的作用 static修饰函数内变量 static修饰的变量分配在静态存储区，在程序整个运行期间都不释放 static局部变量在初次运行时进行初始化工作，且只初始化一次   static修饰函数外变量/函数 用来表示不能被其它文件访问的全局变量和函数   static修饰数据成员 静态数据成员实际上是类域中的全局变量，这种数据成员的生存期大于类的对象 静态数据成员每个类有">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-12T08:01:01.268Z">
+<meta property="og:updated_time" content="2019-10-24T09:11:51.855Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Survey: Network Application&#x2F;Protocol Offloading">
-<meta name="twitter:description" content="Cache KV-direct NetCache  Consistancy NetChain NetPaxos  Packet/Flow Scheduling PIFO Domino">
+<meta name="twitter:title" content="Backend Interview Q&amp;A">
+<meta name="twitter:description" content="C++ Static 关键字的作用 static修饰函数内变量 static修饰的变量分配在静态存储区，在程序整个运行期间都不释放 static局部变量在初次运行时进行初始化工作，且只初始化一次   static修饰函数外变量/函数 用来表示不能被其它文件访问的全局变量和函数   static修饰数据成员 静态数据成员实际上是类域中的全局变量，这种数据成员的生存期大于类的对象 静态数据成员每个类有">
 
 
 
 
 
 
-  <link rel="canonical" href="https://princhenee.github.io/blog/2019/03/28/Survey-Network-Application-Protocol-Offloading/">
+  <link rel="canonical" href="https://princhenee.github.io/blog/2019/06/09/Backend-Interview-Q-A/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Survey: Network Application/Protocol Offloading | Ge Chen's Blog</title>
+  <title>Backend Interview Q&A | Ge Chen's Blog</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/03/28/Survey-Network-Application-Protocol-Offloading/">
+    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/06/09/Backend-Interview-Q-A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ge Chen">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Survey: Network Application/Protocol Offloading
+          <h1 class="post-title" itemprop="name headline">Backend Interview Q&A
 
               
             
@@ -349,7 +349,7 @@
                 
               
 
-              <time title="Created: 2019-03-28 12:25:03" itemprop="dateCreated datePublished" datetime="2019-03-28T12:25:03+08:00">2019-03-28</time>
+              <time title="Created: 2019-06-09 14:27:34" itemprop="dateCreated datePublished" datetime="2019-06-09T14:27:34+08:00">2019-06-09</time>
             
 
             
@@ -366,29 +366,11 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-12 16:01:01" itemprop="dateModified" datetime="2019-10-12T16:01:01+08:00">2019-10-12</time>
+                <time title="Modified: 2019-10-24 17:11:51" itemprop="dateModified" datetime="2019-10-24T17:11:51+08:00">2019-10-24</time>
               
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Paper-Review/" itemprop="url" rel="index"><span itemprop="name">Paper Review</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -418,64 +400,132 @@
       
 
       
-        <h3 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h3><ul>
-<li>KV-direct</li>
-<li>NetCache</li>
+        <h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><ol>
+<li>Static 关键字的作用<ul>
+<li>static修饰函数内变量<ul>
+<li>static修饰的变量分配在静态存储区，在程序整个运行期间都不释放</li>
+<li>static局部变量在初次运行时进行初始化工作，且只初始化一次</li>
 </ul>
-<h3 id="Consistancy"><a href="#Consistancy" class="headerlink" title="Consistancy"></a>Consistancy</h3><ul>
-<li>NetChain</li>
-<li>NetPaxos</li>
+</li>
+<li>static修饰函数外变量/函数<ul>
+<li>用来表示不能被其它文件访问的全局变量和函数</li>
 </ul>
-<h3 id="Packet-Flow-Scheduling"><a href="#Packet-Flow-Scheduling" class="headerlink" title="Packet/Flow Scheduling"></a>Packet/Flow Scheduling</h3><ul>
-<li>PIFO</li>
-<li>Domino</li>
+</li>
+<li>static修饰数据成员<ul>
+<li>静态数据成员实际上是类域中的全局变量，这种数据成员的生存期大于类的对象</li>
+<li>静态数据成员每个类有一份，普通数据成员每个对象有一份</li>
 </ul>
+</li>
+<li>static修饰成员函数<ul>
+<li>静态成员函数不可以调用类的非静态成员</li>
+<li>静态成员是可以独立访问的，也就是说，无须创建任何对象实例就可以访问</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 <a id="more"></a>
+<ol>
+<li>const 与 #define的区别<ul>
+<li>编译器处理方式不同<ul>
+<li>define宏是在预处理阶段展开</li>
+<li>const常量是编译运行阶段使用</li>
+</ul>
+</li>
+<li>类型和安全检查不同<ul>
+<li>define宏没有类型，不做任何类型检查，仅仅是展开</li>
+<li>const常量有具体的类型，在编译阶段会执行类型检查</li>
+</ul>
+</li>
+<li>存储方式不同<ul>
+<li>define宏仅仅是展开，有多少地方使用，就展开多少次，不会分配内存</li>
+<li>const常量会在内存中分配(可以是堆中也可以是栈中)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>指针和引用的区别<ul>
+<li>引用在创建时必须初始化，引用到一个有效对象；</li>
+<li>引用一经声明，就不可以再和其它对象绑定在一起了</li>
+<li>引用的创建和销毁不会调用类的拷贝构造函数和析构函数</li>
+<li>指针在定义时不必初始化，可以在定义后的任何地方重新赋值</li>
+<li>指针可以是NULL，引用不行</li>
+<li>相对于指针，引用不用检查它所指对象是否为空，这增加了效率</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>智能指针<ul>
+<li><a href="https://www.cnblogs.com/lanxuezaipiao/p/4132096.html" target="_blank" rel="noopener">https://www.cnblogs.com/lanxuezaipiao/p/4132096.html</a></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>函数指针</p>
 <ul>
-<li><p><a href="https://www.usenix.org/system/files/nsdi19-saeed.pdf" target="_blank" rel="noopener">Eiffel</a><br>Leverage the O(1) FindFirstSet operation provided by modern CPU, design<br>a data structure Integer Priority Queue, which groups packets with priority<br>within a small range to the same bucket. The tree-structured bitmap is<br>evaluated to accelerate software packet scheduling.</p>
-</li>
-<li><p>Loom</p>
-</li>
-<li><p><a href="https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-radhakrishnan.pdf" target="_blank" rel="noopener">SENIC</a><br>NetFPGA implementation of rate limiters (&gt;10000), putting meta data onboard<br>while packet data in host RAM. These rate limiters can use to realize many<br>queueing algorithms (e.g. DRR, WFQ, WF2Q, HTB) in high-speed networks.</p>
-</li>
-<li><p>P4</p>
-</li>
-<li><p><a href="https://www.usenix.org/legacy/events/nsdi11/tech/full_papers/Lu_Guohan.pdf" target="_blank" rel="noopener">ServerSwitch</a><br>A smartNIC design with broadcom chip embedded to the NIC. App developpers<br>can modify ServerSwitch driver in the kernel to add new packet processing<br>pipelines. Use examples such as source routing, QCN, Bcube, In-Network<br>Caching.</p>
-</li>
-<li><p>Scalable Hardware Priority Queue Architectures for High-Speed Packet Switches</p>
+<li>函数是由载入内存的一些指令组成，而指向函数的指针存储了函数指令<br>的起始地址</li>
+<li>声明：以下代码段的两种声明方式没有区别，从打印的地址相同可以看出;<br>因为函数名在被使用的时候总是由编译器转化为函数指针。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*fp)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fp f1 = test;</span><br><span class="line">    fp f2 = &amp;test;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, f1);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, f2);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="Remote-Procedure-Call"><a href="#Remote-Procedure-Call" class="headerlink" title="Remote Procedure Call"></a>Remote Procedure Call</h3><ul>
-<li>eRPC</li>
-<li>FaRM</li>
-</ul>
-<h3 id="Tcp"><a href="#Tcp" class="headerlink" title="Tcp"></a>Tcp</h3><ul>
-<li><p><a href="https://www.usenix.org/system/files/conference/atc12/atc12-final186.pdf" target="_blank" rel="noopener">NetMap</a></p>
 </li>
-<li><p>mTCP</p>
-</li>
-<li>RouteBricks</li>
-<li>PacketShader</li>
-</ul>
-<h3 id="other-applications"><a href="#other-applications" class="headerlink" title="other applications"></a>other applications</h3><ul>
-<li><p><a href="http://www0.cs.ucl.ac.uk/staff/m.handley/papers/flowstream_ccr.pdf" target="_blank" rel="noopener">FlowStream</a><br>mentioned several apps: firewalls, traffic shapers, load balancers, intrusion<br>detection system (IDS), intrusion prevention system (IPS), application relays<br>(enhencement boxes)</p>
-</li>
-<li><p><a href="https://dl.acm.org/citation.cfm?id=3184899" target="_blank" rel="noopener">A Survey of End-System Optimizations for High-Speed Networks</a></p>
-</li>
-<li><p><a href="https://ieeexplore.ieee.org/document/6967689" target="_blank" rel="noopener">Reducing Internet Latency: A Survey of Techniques and Their Merits</a></p>
-</li>
-</ul>
-<h3 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h3><ul>
-<li><p>To minimize tail latency</p>
+<li><p>虚函数(virtual function)</p>
 <ul>
-<li><p>case1 : N stable large flows with accidentally small bursts.<br>The key contributor to tail latency is the highest queueing point illustrated<br>in DCTCP paper figure 12, when all synchronized flows increase each cwnd by<br>1 before the ECN is carried back.<br>The possible ways to minimize this effect is to either increase cwnd with an<br>amplitude inversely proportional to N (LDCP). Or desynchronize (PACK) them to<br>let one flow’s peak arrives at another flow’s trough.</p>
-</li>
-<li><p>case 2: incast. excessive amount of small bursts overwhelm the buffer within<br>one RTT. PFC should be triggered.</p>
-</li>
+<li>虚函数用于实现多态</li>
+<li>在设计上具有封装和抽象的作用，比如抽象工厂模式。</li>
+<li>构造函数不可以是虚函数，析构函数可以是虚函数。</li>
 </ul>
 </li>
+</ol>
+<ol>
+<li>虚函数表<ul>
+<li>编译器为每一个类维护一个虚函数表，每个对象的首地址保存着该虚函数表<br>的指针，同一个类的不同对象实际上指向同一张虚函数表。</li>
 </ul>
-
+</li>
+</ol>
+<ol>
+<li>重载(overload), 覆盖(override) 和多态(polymorphism)<ul>
+<li>重载(overload)是指在一个类中实现若干方法，这些方法有相同的函数名<br>但是参数的形式或数目不同</li>
+<li>覆盖(override)是指子类在继承父类时，重写父类中的方法，其中函数名<br>以及参数形式必须与父类中的方法一致</li>
+<li>override不能是static同时必须是virtual的</li>
+<li>多态是为了避免父类中的大量重载写法，使得父类能够调用子类的同名方法。</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>C++的多态<ul>
+<li>多态分为静态多态和动态多态。静态多态是通过重载和模板技术实现，<br>在编译的时候确定。动态多态通过虚函数和继承关系来实现，执行动<br>态绑定，在运行的时候确定。</li>
+<li>静态多态：通过模板技术或者函数重载技术实现的多态，其在编译器<br>确定行为。</li>
+<li>动态多态：通过虚函数技术实现在运行期动态绑定的技术。</li>
+<li>动态多态两要素：虚函数和一个基类的指针或引用指向派生类的对象</li>
+<li>基类指针在调用成员函数(虚函数)时，就会去查找该对象的虚函数表。<br>虚函数表的地址在每个对象的首地址。查找该虚函数表中该函数的指<br>针进行调用。</li>
+<li>每个对象中保存的只是一个虚函数表的指针，C++内部为每一个类维持<br>一个虚函数表，该类的对象的都指向这同一个虚函数表。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h2><ol>
+<li>进程和线程<ul>
+<li>调度：在引入线程的操作系统中，线程是调度的基本单位。而<br>进程是资源拥有的基本单位。</li>
+<li>并发性：多进程和多线程都可以进行并发，不同场景下提高吞吐</li>
+<li>系统开销：进程的创建、撤销以及切换的开销远大于线程的开销</li>
+<li>通信：进程之间通信依靠IPC，线程间通信可以直接读写进程的数据<br>段，如全局变量，然而需要同步互斥的辅助，来保证数据的一致性，<br>所以线程的数据同步通常要比进程的复杂。</li>
+<li>综合比较：线程数据共享效率高，轻量，可应对并发操作，有效<br>利用等待时间，但是多线程的编程要比多进程复杂，另外多进程的<br>可靠性更高，因为进程间不会相互影响。一般情况，cpu-bound的<br>任务使用多进程，而io-bound的任务使用多线程。</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>进程间通信IPC<ul>
+<li>管道(pipe)：管道是一种半双工的通信方式，数据只能单向流动，<br>而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是<br>指父子进程关系。</li>
+<li>命名管道 (FIFO) ： 有名管道也是半双工的通信方式，但是它允<br>许无亲缘关系进程间的通信。</li>
+<li>信号量：信号量用于实现进程间的互斥与同步，而不是用于存储<br>进程间通信数据，有XSI信号量和POSIX信号量，POSIX信号量更加完善。</li>
+<li>消息队列( message queue ) ： 消息队列是由消息的链表数组，存放<br>在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、<br>管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
+<li>共享内存( shared memory ) ：共享内存就是映射一段能被其他进程<br>所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。<br>共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率<br>低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实<br>现进程间的同步和通信。mmap建立进程空间到文件的映射，在建立的时<br>，同样采用缺页终端。mmap映射一个具体的文件可以实现任意进程间共<br>享内存，映射一个匿名文件，可以实现父子进程间共享内存。候并不直<br>接将文件拷贝到物理内存。</li>
+<li>套接字( socket ) ： 套解口也是一种进程间通信机制，与其他通信机<br>制不同的是，它可用于不同及其间的进程通信。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Networking"><a href="#Networking" class="headerlink" title="Networking"></a>Networking</h2><h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2>
       
     </div>
 
@@ -498,13 +548,7 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/Sigcomm/" rel="tag"># Sigcomm</a>
-          
-            <a href="/blog/tags/NSDI/" rel="tag"># NSDI</a>
-          
-            <a href="/blog/tags/SOSP/" rel="tag"># SOSP</a>
-          
-            <a href="/blog/tags/HotCloud/" rel="tag"># HotCloud</a>
+            <a href="/blog/tags/Interview/" rel="tag"># Interview</a>
           
         </div>
       
@@ -517,8 +561,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/" rel="next" title="Review - Is advance knowledge of flow sizes a plausible assumption?">
-                <i class="fa fa-chevron-left"></i> Review - Is advance knowledge of flow sizes a plausible assumption?
+              <a href="/blog/2019/05/11/Examples-of-Unix-System-Interface-Implementation/" rel="next" title="Examples of Unix System Interface Implementation">
+                <i class="fa fa-chevron-left"></i> Examples of Unix System Interface Implementation
               </a>
             
           </div>
@@ -527,8 +571,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2019/04/08/Technical-Links/" rel="prev" title="Technical Links">
-                Technical Links <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2019/10/24/2019-10-24-Sorting-Algorithms/" rel="prev" title="Sorting Algorithms">
+                Sorting Algorithms <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -711,7 +755,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache"><span class="nav-text">Cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consistancy"><span class="nav-text">Consistancy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Packet-Flow-Scheduling"><span class="nav-text">Packet/Flow Scheduling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remote-Procedure-Call"><span class="nav-text">Remote Procedure Call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tcp"><span class="nav-text">Tcp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#other-applications"><span class="nav-text">other applications</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#notes"><span class="nav-text">notes</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-text">C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Operating-System"><span class="nav-text">Operating System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Networking"><span class="nav-text">Networking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Database"><span class="nav-text">Database</span></a></li></ol></div>
             
 
           </div>

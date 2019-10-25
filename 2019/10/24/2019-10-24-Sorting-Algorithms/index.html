@@ -96,25 +96,27 @@
 
 
 
-  <meta name="description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
-<meta name="keywords" content="NSDI,Flow Scheduling">
+  <meta name="description" content="Popular Sorting AlgorithmsA comparison on Best/Average/Worse Time complexity, Space Complexity and Stableness.">
+<meta name="keywords" content="Algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Review - Is advance knowledge of flow sizes a plausible assumption?">
-<meta property="og:url" content="https://princhenee.github.io/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/index.html">
+<meta property="og:title" content="Sorting Algorithms">
+<meta property="og:url" content="https://princhenee.github.io/blog/2019/10/24/2019-10-24-Sorting-Algorithms/index.html">
 <meta property="og:site_name" content="Ge Chen&#39;s Blog">
-<meta property="og:description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
+<meta property="og:description" content="Popular Sorting AlgorithmsA comparison on Best/Average/Worse Time complexity, Space Complexity and Stableness.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-12T07:59:34.891Z">
+<meta property="og:image" content="https://princhenee.github.io/blog/2019/10/24/2019-10-24-Sorting-Algorithms/sorting_algo.png">
+<meta property="og:updated_time" content="2019-10-25T07:26:46.439Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Review - Is advance knowledge of flow sizes a plausible assumption?">
-<meta name="twitter:description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
+<meta name="twitter:title" content="Sorting Algorithms">
+<meta name="twitter:description" content="Popular Sorting AlgorithmsA comparison on Best/Average/Worse Time complexity, Space Complexity and Stableness.">
+<meta name="twitter:image" content="https://princhenee.github.io/blog/2019/10/24/2019-10-24-Sorting-Algorithms/sorting_algo.png">
 
 
 
 
 
 
-  <link rel="canonical" href="https://princhenee.github.io/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/">
+  <link rel="canonical" href="https://princhenee.github.io/blog/2019/10/24/2019-10-24-Sorting-Algorithms/">
 
 
 
@@ -124,7 +126,7 @@
   };
 </script>
 
-  <title>Review - Is advance knowledge of flow sizes a plausible assumption? | Ge Chen's Blog</title>
+  <title>Sorting Algorithms | Ge Chen's Blog</title>
   
 
 
@@ -306,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/">
+    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/10/24/2019-10-24-Sorting-Algorithms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ge Chen">
@@ -323,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Review - Is advance knowledge of flow sizes a plausible assumption?
+          <h1 class="post-title" itemprop="name headline">Sorting Algorithms
 
               
             
@@ -349,7 +351,7 @@
                 
               
 
-              <time title="Created: 2019-03-26 16:17:59" itemprop="dateCreated datePublished" datetime="2019-03-26T16:17:59+08:00">2019-03-26</time>
+              <time title="Created: 2019-10-24 14:40:52" itemprop="dateCreated datePublished" datetime="2019-10-24T14:40:52+08:00">2019-10-24</time>
             
 
             
@@ -366,29 +368,11 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-12 15:59:34" itemprop="dateModified" datetime="2019-10-12T15:59:34+08:00">2019-10-12</time>
+                <time title="Modified: 2019-10-25 15:26:46" itemprop="dateModified" datetime="2019-10-25T15:26:46+08:00">2019-10-25</time>
               
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Paper-Review/" itemprop="url" rel="index"><span itemprop="name">Paper Review</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -418,23 +402,12 @@
       
 
       
-        <h3 id="Summary-the-paper"><a href="#Summary-the-paper" class="headerlink" title="Summary the paper"></a>Summary the paper</h3><p>This work presents FLUX, a framework applying both simple heuristics and machine<br>learning methods to estimate the flows’ sizes in advance. Evaluations show that<br>even simple heuristics can achieve high estimation precision and the partial knowledge<br>aquired by FLUX can benefit a number of flow scheduling for data center networks.</p>
-<h3 id="What-motivates-the-work"><a href="#What-motivates-the-work" class="headerlink" title="What motivates the work"></a>What motivates the work</h3><p>To better achieve SLAs in data center networks, a number of flow scheduling mechanisms<br>have been proposed. Among these works, some (e.g. pFabric, PDQ, D3, FastPass, pHost,<br>Homa, Varys) assume the full knowledge of flow/coflow sizes, while others (e.g. PIAS,<br>Aalo) schedule flows without such knowledge, claiming to sacrifice certain performance<br>to benefit and scale deployment.</p>
-<a id="more"></a>
-<p>This work starts by questioning whether flow sizes can be known in advance in practice.<br>Based on the partial knowledge, authors also study the performance gain in the aspect<br>of flow scheduling policy. They argue that flow size estimation can guide scheduler<br>designs with partial knowledge settings and also help measure the efficiency budget.</p>
-<h3 id="How-FLUX-works"><a href="#How-FLUX-works" class="headerlink" title="How FLUX works"></a>How FLUX works</h3><p>After comparing existing solutions (e.g. flow aging, tcp buffer occupancy, system call<br>monitoring), FLUX chooses to learn flow sizes from past traces. The reason is that<br>a majority of jobs running in data center network are periodic and thus have predictable<br>patterns. The challenge is how to get estimation within a short timescale (microsecond).</p>
-<p>FLUX gathers a set of campus-scale workloads (Apache Tomcat server, TensorFlow, PageRank,<br>Spark) as traces. Taking features such as start time, flow gap, CPU, Disk I/O, Memory<br>I/O, FLUX learns flow size models by several ML models (RNN, GBDT). The authors claim<br>that these learning results achieve good precision. By applying the knowledge to<br>scheduler, average mean FCTs can be reduced. This work also mention a counter-intuitive<br>fact that the knowledge of flow sizes does not always improve performance. That is to<br>say, sometimes the higher percentage of knowledge predicted, the worse performance.</p>
-<h3 id="Strengths"><a href="#Strengths" class="headerlink" title="Strengths"></a>Strengths</h3><ul>
-<li>In-depth critical analysis on existing work</li>
-<li>Detailed implementation/tests (self-generated campus traces, full comparisons)</li>
-</ul>
-<h3 id="Weaknesses"><a href="#Weaknesses" class="headerlink" title="Weaknesses"></a>Weaknesses</h3><ul>
-<li>the theoritical part is not coherent</li>
-<li>feature selection unclear, are the features normalized or not</li>
-<li>limited use only in periodic job patterns, cannot handle bursts</li>
-<li>mean FCT is not a good indicator, please check the tail (99th) FCT</li>
-</ul>
-<p>Ref: <a href="https://www.usenix.org/conference/nsdi19/presentation/dukic" target="_blank" rel="noopener">Is advance knowledge of flow sizes a plausible assumption? </a></p>
+        <h3 id="Popular-Sorting-Algorithms"><a href="#Popular-Sorting-Algorithms" class="headerlink" title="Popular Sorting Algorithms"></a>Popular Sorting Algorithms</h3><p>A comparison on Best/Average/Worse Time complexity, Space Complexity and Stableness.<br><a id="more"></a></p>
+<p><img src="sorting_algo.png" alt></p>
+<h3 id="Realizations-in-C"><a href="#Realizations-in-C" class="headerlink" title="Realizations in C"></a>Realizations in C</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Swapping two elem in pos_1 and pos_2 of array</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">swap(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> pos_1, <span class="keyword">int</span> pos_2)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (pos_1 == pos_2) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> tmp = arr[pos_1];</span><br><span class="line">    arr[pos_1] = arr[pos_2];</span><br><span class="line">    arr[pos_2] = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Bubble Sort</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * scan the array, swap the elem with the next if the order is reversed</span></span><br><span class="line"><span class="comment"> * keeping scanning until no reversed pairs in one pass</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">bubble_sort(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> arr_size)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> i, current, last = arr_size - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (last) &#123;</span><br><span class="line">        current = last;</span><br><span class="line">        last = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; current; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i] &gt; arr[i+<span class="number">1</span>]) &#123;</span><br><span class="line">                swap(arr, i, i+<span class="number">1</span>);</span><br><span class="line">                last = current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Selection Sort</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * scan the array for n times, swap the minimum to the right pos</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">selection_sort(<span class="keyword">int</span> arr[], <span class="keyword">int</span> arr_size)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j, min_idx;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; arr_size<span class="number">-1</span>; ++i) &#123;</span><br><span class="line">        min_idx = i;</span><br><span class="line">        <span class="keyword">for</span> (j = i+<span class="number">1</span>; j &lt; arr_size; ++j) &#123;</span><br><span class="line">            min_idx = arr[j] &lt; min_idx ? j : min_idx;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(arr, i, min_idx);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank" rel="noopener">The C Programming language</a></p>
 
       
     </div>
@@ -458,9 +431,7 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/NSDI/" rel="tag"># NSDI</a>
-          
-            <a href="/blog/tags/Flow-Scheduling/" rel="tag"># Flow Scheduling</a>
+            <a href="/blog/tags/Algorithm/" rel="tag"># Algorithm</a>
           
         </div>
       
@@ -473,8 +444,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/03/01/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/blog/2019/06/09/Backend-Interview-Q-A/" rel="next" title="Backend Interview Q&A">
+                <i class="fa fa-chevron-left"></i> Backend Interview Q&A
               </a>
             
           </div>
@@ -482,10 +453,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/03/28/Survey-Network-Application-Protocol-Offloading/" rel="prev" title="Survey: Network Application/Protocol Offloading">
-                Survey: Network Application/Protocol Offloading <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -667,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary-the-paper"><span class="nav-text">Summary the paper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-motivates-the-work"><span class="nav-text">What motivates the work</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-FLUX-works"><span class="nav-text">How FLUX works</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strengths"><span class="nav-text">Strengths</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weaknesses"><span class="nav-text">Weaknesses</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Popular-Sorting-Algorithms"><span class="nav-text">Popular Sorting Algorithms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Realizations-in-C"><span class="nav-text">Realizations in C</span></a></li></ol></div>
             
 
           </div>
