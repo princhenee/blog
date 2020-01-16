@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Found an awesome implementaion of message queue, one of the popular data structures forinterprocess communication. The Posix Message Queue is a good combination of Linked Listand Array List. It also e">
+<meta name="keywords" content="Programming,C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="An Implementation of Posix Message Queue">
+<meta property="og:url" content="https://princhenee.github.io/blog/2019/11/20/2019-11-20-An-Implementation-of-Posix-Message-Queue/index.html">
+<meta property="og:site_name" content="Ge Chen&#39;s Blog">
+<meta property="og:description" content="Found an awesome implementaion of message queue, one of the popular data structures forinterprocess communication. The Posix Message Queue is a good combination of Linked Listand Array List. It also e">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://princhenee.github.io/blog/2019/11/20/2019-11-20-An-Implementation-of-Posix-Message-Queue/posix_mq.png">
+<meta property="og:updated_time" content="2020-01-04T07:12:39.524Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="An Implementation of Posix Message Queue">
+<meta name="twitter:description" content="Found an awesome implementaion of message queue, one of the popular data structures forinterprocess communication. The Posix Message Queue is a good combination of Linked Listand Array List. It also e">
+<meta name="twitter:image" content="https://princhenee.github.io/blog/2019/11/20/2019-11-20-An-Implementation-of-Posix-Message-Queue/posix_mq.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://princhenee.github.io/blog/2019/11/20/2019-11-20-An-Implementation-of-Posix-Message-Queue/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>An Implementation of Posix Message Queue | Ge Chen's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ge Chen's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/11/20/2019-11-20-An-Implementation-of-Posix-Message-Queue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Chen">
+      <meta itemprop="description" content="stay hungry stay foolish">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ge Chen's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">An Implementation of Posix Message Queue
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-20 19:43:17" itemprop="dateCreated datePublished" datetime="2019-11-20T19:43:17+08:00">2019-11-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-04 15:12:39" itemprop="dateModified" datetime="2020-01-04T15:12:39+08:00">2020-01-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Found an awesome implementaion of message queue, one of the popular data structures for<br>interprocess communication. The Posix Message Queue is a good combination of Linked List<br>and Array List. It also exposes the characteristics of Memory Pool, which has limited size<br>with active elements come and leave.</p>
+<a id="more"></a>
+<h3 id="Implementation-in-C-using-Memory-Mapped-I-O"><a href="#Implementation-in-C-using-Memory-Mapped-I-O" class="headerlink" title="Implementation in C using Memory-Mapped I/O"></a>Implementation in C using Memory-Mapped I/O</h3><h4 id="Layout-of-data-structures-to-implement-Posix-message-queues-using-a-memory-mapped-file"><a href="#Layout-of-data-structures-to-implement-Posix-message-queues-using-a-memory-mapped-file" class="headerlink" title="Layout of data structures to implement Posix message queues using a memory-mapped file"></a>Layout of data structures to implement Posix message queues using a memory-mapped file</h4><p><img src="posix_mq.png" alt></p>
+<h4 id="mqueue-h"><a href="#mqueue-h" class="headerlink" title="mqueue.h"></a>mqueue.h</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">mq_info</span> *<span class="title">mqd_t</span>;</span>  <span class="comment">/* opaque datatype */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mq_attr</span> &#123;</span></span><br><span class="line">    <span class="keyword">long</span>    mq_flags;           <span class="comment">/* message queue flag: O_NONBLOCK */</span></span><br><span class="line">    <span class="keyword">long</span>    mq_maxmsg;          <span class="comment">/* max number of message allowed on queue */</span></span><br><span class="line">    <span class="keyword">long</span>    mq_msgsize;         <span class="comment">/* max size of a message (in bytes) */</span></span><br><span class="line">    <span class="keyword">long</span>    mq_curmsgs;         <span class="comment">/* number of messages currently in queue */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* one mq_hdr&#123;&#125; per queue, at beginning of mapped file */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mq_hdr</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mq_attr</span> <span class="title">mqh_attr</span>;</span>    <span class="comment">/* the queue's attributes */</span></span><br><span class="line">    <span class="keyword">long</span>    mqh_head;           <span class="comment">/* index of first message */</span></span><br><span class="line">    <span class="keyword">long</span>    mqh_free;           <span class="comment">/* index of first free message */</span></span><br><span class="line">    <span class="keyword">long</span>    mqh_nwait;          <span class="comment">/* #threads blocked in mq_receive() */</span></span><br><span class="line">    <span class="keyword">pid_t</span>   mqh_pid;            <span class="comment">/* nonzero PID if mqh_event set */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sigevent</span> <span class="title">mqh_event</span>;</span>  <span class="comment">/* for mq_notify() */</span></span><br><span class="line">    <span class="keyword">pthread_mutex_t</span> mqh_lock;   <span class="comment">/* mutex lock */</span></span><br><span class="line">    <span class="keyword">pthread_cond_t</span> mqh_wait;    <span class="comment">/* and condition variable */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* one msg_hdr&#123;&#125; at the front of each message in the mapped file */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msg_hdr</span> &#123;</span></span><br><span class="line">    <span class="keyword">long</span>    msg_next;           <span class="comment">/* index of next on linked list */</span></span><br><span class="line">        <span class="comment">/* msg_next nust be first member in struct */</span></span><br><span class="line">    <span class="keyword">ssize_t</span> msg_len;            <span class="comment">/* actual length */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> msg_prio;      <span class="comment">/* priority */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* one mq_info&#123;&#125; malloc'ed per process per mq_open() */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mq_info</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mq_hdr</span> *<span class="title">mqi_hdr</span>;</span>     <span class="comment">/* start of mmap'ed region */</span></span><br><span class="line">    <span class="keyword">long</span>    mqi_magic;          <span class="comment">/* magic number if open */</span></span><br><span class="line">    <span class="keyword">int</span>     mqi_flags;          <span class="comment">/* flags for this process */</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MQI_MAGIC   0x98765432</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* size of message in file is rounded up for alignment */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MSGSIZE(i)  ((((i) + sizeof(long)-1) / sizeof(long)) * sizeof(long))</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">/* our functions */</span></span><br><span class="line"><span class="keyword">mqd_t</span>	 mq_open(<span class="keyword">const</span> <span class="keyword">char</span> *, <span class="keyword">int</span>, ...);</span><br><span class="line"><span class="function"><span class="keyword">int</span>      <span class="title">mq_close</span><span class="params">(<span class="keyword">mqd_t</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>      <span class="title">mq_unlink</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>      <span class="title">mq_getattr</span><span class="params">(<span class="keyword">mqd_t</span>, struct mq_attr *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>      <span class="title">mq_setattr</span><span class="params">(<span class="keyword">mqd_t</span>, <span class="keyword">const</span> struct mq_attr *, struct mq_attr *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>      <span class="title">mq_notify</span><span class="params">(<span class="keyword">mqd_t</span>, <span class="keyword">const</span> struct sigevent *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>      <span class="title">mq_send</span><span class="params">(<span class="keyword">mqd_t</span>, <span class="keyword">const</span> <span class="keyword">char</span> *, <span class="keyword">size_t</span>, <span class="keyword">unsigned</span> <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="keyword">ssize_t</span>	 mq_receive(<span class="keyword">mqd_t</span>, <span class="keyword">char</span> *, <span class="keyword">size_t</span>, <span class="keyword">unsigned</span> <span class="keyword">int</span> *);</span><br></pre></td></tr></table></figure>
+<h4 id="mq-open-c"><a href="#mq-open-c" class="headerlink" title="mq_open.c"></a>mq_open.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>    <span class="meta-string">"unpipc.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>    <span class="meta-string">"mqueue.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>    <span class="meta-string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>    MAX_TRIES   10      <span class="comment">/* for waiting for initialization */</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mq_attr</span> <span class="title">defattr</span> = &#123;</span> <span class="number">0</span>, <span class="number">128</span>, <span class="number">1024</span>, <span class="number">0</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">mqd_t</span></span><br><span class="line">mq_open(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> oflag, ...)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span>     i, fd, nonblock, created, save_errno;</span><br><span class="line">	<span class="keyword">long</span>	msgsize, filesize, index;</span><br><span class="line">	va_list	ap;</span><br><span class="line">	<span class="keyword">mode_t</span>  mode;</span><br><span class="line">	<span class="keyword">int8_t</span>	*mptr;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span>  <span class="title">stat</span> <span class="title">statbuff</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span>  <span class="title">mq_hdr</span> *<span class="title">mqhdr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span>  <span class="title">msg_hdr</span> *<span class="title">msghdr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">mq_attr</span> *<span class="title">attr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> 	<span class="title">mq_info</span> *<span class="title">mqinfo</span>;</span></span><br><span class="line">	<span class="keyword">pthread_mutexattr_t</span> mattr;</span><br><span class="line">	<span class="keyword">pthread_condattr_t</span> cattr;</span><br><span class="line"></span><br><span class="line">	created = <span class="number">0</span>;</span><br><span class="line">	nonblock = oflag &amp; O_NONBLOCK;</span><br><span class="line">	oflag &amp;= ~O_NONBLOCK;</span><br><span class="line">	mptr = (<span class="keyword">int</span>(<span class="keyword">_t</span> *) MAP_FAILED;</span><br><span class="line">	mqinfo = <span class="literal">NULL</span>;</span><br><span class="line">again:</span><br><span class="line">	<span class="keyword">if</span> (oflag &amp; O_CREAT) &#123;</span><br><span class="line">		va_start(ap, oflag);	<span class="comment">/* init ap to final named argument */</span></span><br><span class="line">		mode = va_arg(ap, <span class="keyword">va_mode_t</span>) &amp; ~S_IXUSR;</span><br><span class="line">		attr = va_arg(ap, struct mq_attr *);</span><br><span class="line">		va_end(ap);</span><br><span class="line"></span><br><span class="line">			<span class="comment">/* open and specify O_EXCL and user-execute */</span></span><br><span class="line">		fd = open(pathname, oflag | O_EXCL | O_RDWR, mode | S_IXUSR);</span><br><span class="line">		<span class="keyword">if</span> (fd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (errno == EEXIST &amp;&amp; (oflag &amp; O_EXCL) == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">goto</span> exists;	<span class="comment">/* already exists, OK */</span></span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">return</span> ((<span class="keyword">mqd_t</span>) - <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		created = <span class="number">-1</span>;</span><br><span class="line">			<span class="comment">/* first one to create the file initializes it */</span></span><br><span class="line">		<span class="keyword">if</span> (attr == <span class="literal">NULL</span>)</span><br><span class="line">			attr = &amp;defattr;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (attr-&gt;mq_maxmsg &lt;= <span class="number">0</span> || attr-&gt;mq_msgsize &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">				errno = EINVAL;</span><br><span class="line">				<span class="keyword">goto</span> err;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">			<span class="comment">/* calculate and set the file size */</span></span><br><span class="line">		msgsize = MSGSIZE(attr-&gt;mq_msgsize);</span><br><span class="line">		filesize = <span class="keyword">sizeof</span>(struct mq_hdr) + (attr-&gt;mq_maxmsg *</span><br><span class="line">							(<span class="keyword">sizeof</span>(struct msg_hdr) + msgsize));</span><br><span class="line">		<span class="keyword">if</span> (lseek(fd, filesize - <span class="number">1</span>, SEEK_SET) == <span class="number">-1</span>)</span><br><span class="line">			<span class="keyword">goto</span> err;</span><br><span class="line">		<span class="keyword">if</span> (write(fd, <span class="string">""</span>, <span class="number">1</span>) == <span class="number">-1</span>)</span><br><span class="line">			<span class="keyword">goto</span> err;</span><br><span class="line"></span><br><span class="line">			<span class="comment">/* memory map the file */</span></span><br><span class="line">		mptr = mmap(<span class="literal">NULL</span>, filesize, PROT_READ | PROT_WRITE,</span><br><span class="line">					MAP_SHARED, fd, <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">if</span> (mptr == MAP_FAILED)</span><br><span class="line">			<span class="keyword">goto</span> err;</span><br><span class="line"></span><br><span class="line">			<span class="comment">/* allocate one mq_info&#123;&#125; for the queue */</span></span><br><span class="line">		<span class="keyword">if</span> ( (mqinfo = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct mq_info))) == <span class="literal">NULL</span>)</span><br><span class="line">			<span class="keyword">goto</span> err;</span><br><span class="line"></span><br><span class="line">		mqinfo-&gt;mqi_hdr = mqhdr = (struct mq_hdr *) mptr;</span><br><span class="line">		mqinfo-&gt;mqi_magic = MQI_MAGIC;</span><br><span class="line">		mqinfo-&gt;mqi_flags = nonblock;</span><br><span class="line">		</span><br><span class="line">			<span class="comment">/* initialize header at beginning of file */</span></span><br><span class="line">			<span class="comment">/* create free list with all messages on it */</span></span><br><span class="line">		mqhdr-&gt;mqh_attr.mq_flags = <span class="number">0</span>;</span><br><span class="line">		mqhdr-&gt;mqh_attr.mq_maxmsg = attr-&gt;mq_maxmsg;</span><br><span class="line">		mqhdr-&gt;mqh_attr.mq_msgsize = attr-&gt;mq_msgsize;</span><br><span class="line">		mqhdr-&gt;mqh_attr.mq_curmsgs = <span class="number">0</span>;</span><br><span class="line">		mqhdr-&gt;mqh_nwait = <span class="number">0</span>;</span><br><span class="line">		mqhdr-&gt;mqh_pid = <span class="number">0</span>;</span><br><span class="line">		mqhdr-&gt;mqh_head = <span class="number">0</span>;</span><br><span class="line">		index = <span class="keyword">sizeof</span>(struct mq_hdr);</span><br><span class="line">		mqhdr-&gt;mqh_free = index;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; attr-&gt;mq_maxmsg - <span class="number">1</span>; i++) &#123;</span><br><span class="line">			msghdr = (struct msg_hdr *) &amp;mptr[index];</span><br><span class="line">			index += <span class="keyword">sizeof</span>(struct msg_hdr) + msgsize;</span><br><span class="line">			msghdr-&gt;msg_next = index;</span><br><span class="line">		&#125;</span><br><span class="line">		msghdr = (struct msg_hdr *) &amp;mptr[index];</span><br><span class="line">		msghdr-&gt;msg_next = <span class="number">0</span>;	<span class="comment">/* end of free list */</span></span><br><span class="line"></span><br><span class="line">			<span class="comment">/* initialize mutex &amp; condition variable */</span></span><br><span class="line">		<span class="keyword">if</span> ( (i = pthread_mutexattr_init(&amp;mattr)) != <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">goto</span> pthreaderr;</span><br><span class="line">		pthread_mutexattr_setpshared(&amp;mattr, PTHREAD_PROCESS_SHARED);</span><br><span class="line">		i = pthread_mutex_init(&amp;mqhdr-&gt;mqh_lock, &amp;mattr);</span><br><span class="line">		pthread_mutexattr_destroy(&amp;mattr);	<span class="comment">/* be sure to destroy */</span></span><br><span class="line">		<span class="keyword">if</span> (i != <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">goto</span> pthreaderr;</span><br><span class="line"></span><br><span class="line">			<span class="comment">/* initialization complete, turn off user-execute bit */</span></span><br><span class="line">		<span class="keyword">if</span> (fchmod(fd, mode) == <span class="number">-1</span>)</span><br><span class="line">			<span class="keyword">goto</span> err;</span><br><span class="line">		close(fd);</span><br><span class="line">		<span class="keyword">return</span> ((<span class="keyword">mqd_t</span>) mqinfo);</span><br><span class="line">	&#125;</span><br><span class="line">exists:</span><br><span class="line">		<span class="comment">/* open the file then memory map */</span></span><br><span class="line">	<span class="keyword">if</span> ( (fd = open(pathname, O_RDWR)) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (errno == ENOENT &amp;&amp; (oflag &amp; O_CREAT))</span><br><span class="line">			<span class="keyword">goto</span> again;</span><br><span class="line">		<span class="keyword">goto</span> err;</span><br><span class="line">	&#125;</span><br><span class="line">		<span class="comment">/* make certain initialization is complete */</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; MAX_TRIES; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (stat(pathname, &amp;statbuff) == <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (errno == ENOENT &amp;&amp; (oflag &amp; O_CREAT)) &#123;</span><br><span class="line">				close(fd);</span><br><span class="line">				<span class="keyword">goto</span> again;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">goto</span> err;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> ((statbuff.st_mode &amp; S_IXUSR) == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (i == MAX_TRIES) &#123;</span><br><span class="line">		errno = ETIMEOUT;</span><br><span class="line">		<span class="keyword">goto</span> err;</span><br><span class="line">	&#125;</span><br><span class="line">	filesize = statbuff.st_size;</span><br><span class="line">	mptr = mmap(<span class="literal">NULL</span>, filesize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">if</span> (mptr == MAP_FAILED)</span><br><span class="line">		<span class="keyword">goto</span> err;</span><br><span class="line">	close(fd);</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* allocate one mq_info&#123;&#125; for each open */</span></span><br><span class="line">	<span class="keyword">if</span> ( (mqinfo = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct mq_info))) == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">goto</span> err;</span><br><span class="line"></span><br><span class="line">	mqinfo-&gt;mqi_hdr = mqhdr = (struct mq_hdr *) mptr;</span><br><span class="line">	mqinfo-&gt;mqi_magic = MQI_MAGIC;</span><br><span class="line">	mqinfo-&gt;mqi_flags = nonblock;</span><br><span class="line">	<span class="keyword">return</span> ((<span class="keyword">mqd_t</span>) mqinfo);</span><br><span class="line">pthreaderr:</span><br><span class="line">	errno = i;</span><br><span class="line">err:</span><br><span class="line">		<span class="comment">/* don't let following function calls change errno */</span></span><br><span class="line">	save_errno = errno;</span><br><span class="line">	<span class="keyword">if</span> (create)</span><br><span class="line">		unlink(pathname);</span><br><span class="line">	<span class="keyword">if</span> (mptr != MAP_FAILED)</span><br><span class="line">		munmap(mptr, filesize);</span><br><span class="line">	<span class="keyword">if</span> (mqinfo != <span class="literal">NULL</span>)</span><br><span class="line">		<span class="built_in">free</span>(mqinfo);</span><br><span class="line">	close(fd);</span><br><span class="line">	errno = save_errno;</span><br><span class="line">	<span class="keyword">return</span> ((<span class="keyword">mqd_t</span>) <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mq-close-c"><a href="#mq-close-c" class="headerlink" title="mq_close.c"></a>mq_close.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpipc.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"mqueue.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">mq_close(<span class="keyword">mqd_t</span> mqd)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">long</span>	msgsize, filesize;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_hdr</span> *<span class="title">mqhdr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_attr</span> *<span class="title">attr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_info</span> *<span class="title">mqinfo</span>;</span></span><br><span class="line"></span><br><span class="line">	mqinfo = mqd;</span><br><span class="line">	<span class="keyword">if</span> (mqinfo-&gt;mqi_magic != MQI_MAGIC) &#123;</span><br><span class="line">		errno = EBADF;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	mqhdr = mqinfo-&gt;mqi_hdr;</span><br><span class="line">	attr = &amp;mqhdr-&gt;mqh_attr;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (mq_notify(mqd, <span class="literal">NULL</span>) != <span class="number">0</span>)	<span class="comment">/* unregister calling process */</span></span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	</span><br><span class="line">	msgsize = MSGSIZE(attr-&gt;mq_msgsize);</span><br><span class="line">	filesize = <span class="keyword">sizeof</span>(struct mq_hdr) + (attr-&gt;mq_maxmsg *</span><br><span class="line">						(<span class="keyword">sizeof</span>(struct msg_hdr) + msgsize));</span><br><span class="line">	<span class="keyword">if</span> (munmap(mqinfo-&gt;mqi_hdr, filesize) == <span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	mqinfo-&gt;mqi_magic = <span class="number">0</span>;			<span class="comment">/* just in case */</span></span><br><span class="line">	<span class="built_in">free</span>(mqinfo);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mq-unlink-c"><a href="#mq-unlink-c" class="headerlink" title="mq_unlink.c"></a>mq_unlink.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpipc.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"mqueue.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">mq_unlink(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (unlink(pathname) == <span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mq-getattr-c"><a href="#mq-getattr-c" class="headerlink" title="mq_getattr.c"></a>mq_getattr.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpipc.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"mqueue.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">mq_getattr(<span class="keyword">mqd_t</span> mqd, struct mq_attr *mqstat)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span>		n;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_hdr</span> *<span class="title">mqhdr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_attr</span> *<span class="title">attr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_info</span> *<span class="title">mqinfo</span>;</span></span><br><span class="line"></span><br><span class="line">	mqinfo = mqd;</span><br><span class="line">	<span class="keyword">if</span> (mqinfo-&gt;mqi_magic != MQI_MAGIC) &#123;</span><br><span class="line">		errno = EBADF;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	mqhdr = mqinfo-&gt;mqi_hdr;</span><br><span class="line">	attr = &amp;mqhdr-&gt;mqh_attr;</span><br><span class="line">	<span class="keyword">if</span> ( (n = pthread_mutex_lock(&amp;mqhdr-&gt;mqh_lock)) != <span class="number">0</span>) &#123;</span><br><span class="line">		errno = n;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	mqstat-&gt;mq_flags = mqinfo-&gt;mqi_flags;	<span class="comment">/* per-open */</span></span><br><span class="line">	mqstat-&gt;mq_maxmsg = attr-&gt;mq_maxmsg;	<span class="comment">/* remaining three per-queue */</span></span><br><span class="line">	mqstat-&gt;mq_msgsize = attr-&gt;mq_msgsize;</span><br><span class="line">	mqstat-&gt;mq_curmsgs = attr-&gt;mq_curmsgs;</span><br><span class="line"></span><br><span class="line">	pthread_mutex_unlock(&amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mq-setattr-c"><a href="#mq-setattr-c" class="headerlink" title="mq_setattr.c"></a>mq_setattr.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpipc.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"mqueue.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">mq_setattr(<span class="keyword">mqd_t</span> mqd, <span class="keyword">const</span> struct mq_attr *mqstat,</span><br><span class="line">             struct mq_attr *omqstat)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span>    n;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_hdr</span> *<span class="title">mqhdr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_attr</span> *<span class="title">attr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_info</span> *<span class="title">mqinfo</span>;</span></span><br><span class="line"></span><br><span class="line">	mqinfo = mqd;</span><br><span class="line">	<span class="keyword">if</span> (mqinfo-&gt;mqi_magic != MQI_MAGIC) &#123;</span><br><span class="line">		errno = EBADF;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	mqhdr = mqinfo-&gt;mqi_hdr;</span><br><span class="line">	attr = &amp;mqhdr-&gt;mqh_attr;</span><br><span class="line">	<span class="keyword">if</span> ( (n = pthread_mutex_lock(&amp;mqhdr-&gt;mqh_lock)) != <span class="number">0</span>) &#123;</span><br><span class="line">		errno = n;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (omqstat != <span class="literal">NULL</span>) &#123;</span><br><span class="line">		omqstat-&gt;mq_flags = mqinfo-&gt;mqi_flags;	<span class="comment">/* previous attributes */</span></span><br><span class="line">		omqstat-&gt;mq_maxmsg = attr-&gt;mq_maxmsg;</span><br><span class="line">		omqstat-&gt;mq_msgsize = attr-&gt;mq_msgsize;</span><br><span class="line">		omqstat-&gt;mq_curmsgs = attr-&gt;mq_curmsgs;	<span class="comment">/* and current status */</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (mqstat-&gt;mq_flags &amp; O_NONBLOCK)</span><br><span class="line">		mqinfo-&gt;mqi_flags |= O_NONBLOCK;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		mqinfo-&gt;mqi_flags &amp;= ~O_NONBLOCK;</span><br><span class="line"></span><br><span class="line">	pthread_mutex_unlock(&amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mq-notify-c"><a href="#mq-notify-c" class="headerlink" title="mq_notify.c"></a>mq_notify.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpipc.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"mqueue.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">mq_notify(<span class="keyword">mqd_t</span> mqd, <span class="keyword">const</span> struct sigevent *notification)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span>     n;</span><br><span class="line">	<span class="keyword">pid_t</span>	pid;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_hdr</span> *<span class="title">mqhdr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_info</span> *<span class="title">mqinfo</span>;</span></span><br><span class="line"></span><br><span class="line">	mqinfo = mqd;</span><br><span class="line">	<span class="keyword">if</span> (mqinfo-&gt;mqi_magic != MQI_MAGIC) &#123;</span><br><span class="line">		errno = EBADF;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	mqhdr = mqinfo-&gt;mqi_hdr;</span><br><span class="line">	<span class="keyword">if</span> ( (n = pthread_mutex_lock(&amp;mqhdr-&gt;mqh_lock)) != <span class="number">0</span>) &#123;</span><br><span class="line">		errno = n;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	pid = getpid();</span><br><span class="line">	<span class="keyword">if</span> (notification == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (mqhdr-&gt;mqh_pid == pid) &#123;</span><br><span class="line">			mqhdr-&gt;mqh_pid = <span class="number">0</span>; <span class="comment">/* unregister calling process */</span></span><br><span class="line">		&#125;                       <span class="comment">/* no error if caller not registered */</span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (mqhdr-&gt;mqh_pid != <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (kill(mqhdr-&gt;mqh_pid, <span class="number">0</span>) != <span class="number">-1</span> || errno != ESRCH) &#123;</span><br><span class="line">				errno = EBUSY;</span><br><span class="line">				<span class="keyword">goto</span> err;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	pthread_mutex_unlock(&amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">0</span>);</span><br><span class="line">err:</span><br><span class="line">	pthread_mutex_unlock(&amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mq-send-c"><a href="#mq-send-c" class="headerlink" title="mq_send.c"></a>mq_send.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpipc.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"mqueue.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">mq_send(<span class="keyword">mqd_t</span> mqd, <span class="keyword">const</span> <span class="keyword">char</span> *ptr, <span class="keyword">size_t</span> len, <span class="keyword">unsigned</span> <span class="keyword">int</span> prio)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span>     n;</span><br><span class="line">	<span class="keyword">long</span>    index, freeindex;</span><br><span class="line">	<span class="keyword">int8_t</span> *mptr;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sigevent</span> *<span class="title">sigev</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_hdr</span> *<span class="title">mqhdr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_attr</span> *<span class="title">attr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_info</span> *<span class="title">mqinfo</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">msg_hdr</span> *<span class="title">msghdr</span>, *<span class="title">nmsghdr</span>, *<span class="title">pmsghdr</span>;</span></span><br><span class="line"></span><br><span class="line">	mqinfo = mqd;</span><br><span class="line">	<span class="keyword">if</span> (mqinfo-&gt;mqi_magic != MQI_MAGIC) &#123;</span><br><span class="line">		errno = EBADF;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	mqhdr = mqinfo-&gt;mqi_hdr;	<span class="comment">/* struct pointer */</span></span><br><span class="line">	mptr = (<span class="keyword">int8_t</span> *) mqhdr;	<span class="comment">/* byte pointer */</span></span><br><span class="line">	attr = &amp;mqhdr-&gt;mqh_attr;</span><br><span class="line">	<span class="keyword">if</span> ( (n = pthread_mutex_lock(&amp;mqhdr-&gt;mqh_lock)) != <span class="number">0</span>) &#123;</span><br><span class="line">		errno = n;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (len &gt; attr-&gt;mq_msgsize) &#123;</span><br><span class="line">		errno = EMSGSIZE;</span><br><span class="line">		<span class="keyword">goto</span> err;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (attr-&gt;mq_curmsgs == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (mqhdr-&gt;mqh_pid != <span class="number">0</span> &amp;&amp; mqhdr-&gt;mqh_nwait == <span class="number">0</span>) &#123;</span><br><span class="line">			sigev = &amp;mqhdr-&gt;mqh_event;</span><br><span class="line">			<span class="keyword">if</span> (sigev-&gt;sigev_notify == SIGEV_SIGNAL) &#123;</span><br><span class="line">				sigqueue(mqhdr-&gt;mqh_pid, sigev-&gt;sigev_signo,</span><br><span class="line">						 sigev-&gt;sigev_value);</span><br><span class="line">			&#125;</span><br><span class="line">			mqhdr-&gt;mqh_pid = <span class="number">0</span>; <span class="comment">/* unregister */</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (attr-&gt;mq_curmsgs &gt;= attr-&gt;mq_maxmsg) &#123;</span><br><span class="line">			<span class="comment">/* queue is full */</span></span><br><span class="line">		<span class="keyword">if</span> (mqinfo-&gt;mqi_flags &amp; O_NONBLOCK) &#123;</span><br><span class="line">			errno = EAGAIN;</span><br><span class="line">			<span class="keyword">goto</span> err;</span><br><span class="line">		&#125;</span><br><span class="line">			<span class="comment">/* wait for room for one message on the queue */</span></span><br><span class="line">		<span class="keyword">while</span> (attr-&gt;mq_curmsgs &gt;= attr-&gt;mq_maxmsg)</span><br><span class="line">			pthread_cond_wait(&amp;mqhdr-&gt;mqh_wait, &amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	&#125;</span><br><span class="line">		<span class="comment">/* nmsghdr will point to new message */</span></span><br><span class="line">	<span class="keyword">if</span> ( (freeindex = mqhdr-&gt;mqh_free) == <span class="number">0</span>)</span><br><span class="line">		err_dump(<span class="string">"mq_send: curmsgs = %ld; free = 0"</span>, attr-&gt;mq_curmsgs);</span><br><span class="line">	nmsghdr = (struct msg_hdr *) &amp;mptr[freeindex];</span><br><span class="line">	nmsghdr-&gt;msg_prio = prio;</span><br><span class="line">	nmsghdr-&gt;msg_len = len;</span><br><span class="line">	<span class="built_in">memcpy</span>(nmsghdr + <span class="number">1</span>, ptr, len);  <span class="comment">/* copy message from caller */</span></span><br><span class="line">	mqhdr-&gt;mqh_free = nmsghdr-&gt;msg_next;    <span class="comment">/* new freelist head */</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">/* find right place for message in linked list */</span></span><br><span class="line">	index = mqhdr-&gt;mqh_head;</span><br><span class="line">	pmsghdr = (struct msg_hdr *) &amp;(mqhdr-&gt;mqh_head);</span><br><span class="line">	<span class="keyword">while</span> (index != <span class="number">0</span>) &#123;</span><br><span class="line">		msghdr = (struct msg_hdr *) &amp;mptr[index];</span><br><span class="line">		<span class="keyword">if</span> (prio &gt; msghdr-&gt;msg_prio) &#123;</span><br><span class="line">			nmsghdr-&gt;msg_next = index;</span><br><span class="line">			pmsghdr-&gt;msg_next = freeindex;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		index = msghdr-&gt;msg_next;</span><br><span class="line">		pmsghdr = msghdr;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (index == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="comment">/* queue was empty or new goes at end of list */</span></span><br><span class="line">		pmsghdr-&gt;msg_next = freeindex;</span><br><span class="line">		nmsghdr-&gt;msg_next = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">		<span class="comment">/* wake up anyone blocked in mq_receive waiting for a message */</span></span><br><span class="line">	<span class="keyword">if</span> (attr-&gt;mq_curmsgs == <span class="number">0</span>)</span><br><span class="line">		pthread_cond_signal(&amp;mqhdr-&gt;mqh_wait);</span><br><span class="line">	attr-&gt;mq_curmsgs++;</span><br><span class="line"></span><br><span class="line">	pthread_mutex_unlock(&amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">0</span>);</span><br><span class="line">err:</span><br><span class="line">	pthread_mutex_unlock(&amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mq-receive-c"><a href="#mq-receive-c" class="headerlink" title="mq_receive.c"></a>mq_receive.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpipc.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"mqueue.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ssize_t</span></span><br><span class="line">mq_receive(<span class="keyword">mqd_t</span> mqd, <span class="keyword">char</span> *ptr, <span class="keyword">size_t</span> maxlen, <span class="keyword">unsigned</span> <span class="keyword">int</span> *priop)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span>     n;</span><br><span class="line">	<span class="keyword">long</span>    index;</span><br><span class="line">	<span class="keyword">int8_t</span> *mptr;</span><br><span class="line">	<span class="keyword">ssize_t</span> len;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sigevent</span> *<span class="title">sigev</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_hdr</span> *<span class="title">mqhdr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_attr</span> *<span class="title">attr</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mq_info</span> *<span class="title">mqinfo</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">msg_hdr</span> *<span class="title">msghdr</span>;</span></span><br><span class="line"></span><br><span class="line">	mqinfo = mqd;</span><br><span class="line">	<span class="keyword">if</span> (mqinfo-&gt;mqi_magic != MQI_MAGIC) &#123;</span><br><span class="line">		errno = EBADF;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	mqhdr = mqinfo-&gt;mqi_hdr;	<span class="comment">/* struct pointer */</span></span><br><span class="line">	mptr = (<span class="keyword">int8_t</span> *) mqhdr;	<span class="comment">/* byte pointer */</span></span><br><span class="line">	attr = &amp;mqhdr-&gt;mqh_attr;</span><br><span class="line">	<span class="keyword">if</span> ( (n = pthread_mutex_lock(&amp;mqhdr-&gt;mqh_lock)) != <span class="number">0</span>) &#123;</span><br><span class="line">		errno = n;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (maxlen &lt; attr-&gt;mq_msgsize) &#123;</span><br><span class="line">		errno = EMSGSIZE;</span><br><span class="line">		<span class="keyword">goto</span> err;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (attr-&gt;mq_curmsgs == <span class="number">0</span>) &#123;	<span class="comment">/* queue is empty */</span></span><br><span class="line">		<span class="keyword">if</span> (mqinfo-&gt;mqi_flags &amp; O_NONBLOCK) &#123;</span><br><span class="line">			errno = EAGAIN;</span><br><span class="line">			<span class="keyword">goto</span> err;</span><br><span class="line">		&#125;</span><br><span class="line">			<span class="comment">/* wait for a message to be placed onto the queue */</span></span><br><span class="line">		mqhdr-&gt;mqh_nwait++;</span><br><span class="line">		<span class="keyword">while</span> (attr-&gt;mq_curmsgs == <span class="number">0</span>)</span><br><span class="line">			pthread_cond_wait(&amp;mqhdr-&gt;mqh_wait, &amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">		mqhdr-&gt;mqh_nwait--;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> ( (freeindex = mqhdr-&gt;mqh_free) == <span class="number">0</span>)</span><br><span class="line">		err_dump(<span class="string">"mq_receive: curmsgs = %ld; free = 0"</span>, attr-&gt;mq_curmsgs);</span><br><span class="line"></span><br><span class="line">	msghdr = (struct msg_hdr *) &amp;mptr[index];</span><br><span class="line">	mqhdr-&gt;mqh_head = msghdr-&gt;msg_next;    <span class="comment">/* new head of list*/</span></span><br><span class="line">	len = msghdr-&gt;msg_len;</span><br><span class="line">	<span class="built_in">memcpy</span>(ptr, msghdr + <span class="number">1</span>, len);  <span class="comment">/* copy the message itself */</span></span><br><span class="line">	<span class="keyword">if</span> (priop != <span class="literal">NULL</span>)</span><br><span class="line">		*priop = msghdr-&gt;msg_prio;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* just-read message goes to front of free list */</span></span><br><span class="line">	msghdr-&gt;msg_next = mqhdr-&gt;mqh_free;</span><br><span class="line">	mqhdr-&gt;mqh_free = index;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* wake up anyone blocked in mq_send waiting for room */</span></span><br><span class="line">	<span class="keyword">if</span> (attr-&gt;mq_curmsgs == attr-&gt;mq_maxmsg)</span><br><span class="line">		pthread_cond_signal(&amp;mqhdr-&gt;mqh_wait);</span><br><span class="line">	attr-&gt;mq_curmsgs--;</span><br><span class="line"></span><br><span class="line">	pthread_mutex_unlock(&amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">0</span>);</span><br><span class="line">err:</span><br><span class="line">	pthread_mutex_unlock(&amp;mqhdr-&gt;mqh_lock);</span><br><span class="line">	<span class="keyword">return</span> (<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Programming/" rel="tag"># Programming</a>
+          
+            <a href="/blog/tags/C/" rel="tag"># C</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/10/31/2019-10-31-Linked-List-Related-Programs/" rel="next" title="Linked List Related Algorithms">
+                <i class="fa fa-chevron-left"></i> Linked List Related Algorithms
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Chen</p>
+              <div class="site-description motion-element" itemprop="description">stay hungry stay foolish</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/blog/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/princhenee" title="GitHub &rarr; https://github.com/princhenee" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Implementation-in-C-using-Memory-Mapped-I-O"><span class="nav-text">Implementation in C using Memory-Mapped I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Layout-of-data-structures-to-implement-Posix-message-queues-using-a-memory-mapped-file"><span class="nav-text">Layout of data structures to implement Posix message queues using a memory-mapped file</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mqueue-h"><span class="nav-text">mqueue.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-open-c"><span class="nav-text">mq_open.c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-close-c"><span class="nav-text">mq_close.c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-unlink-c"><span class="nav-text">mq_unlink.c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-getattr-c"><span class="nav-text">mq_getattr.c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-setattr-c"><span class="nav-text">mq_setattr.c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-notify-c"><span class="nav-text">mq_notify.c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-send-c"><span class="nav-text">mq_send.c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-receive-c"><span class="nav-text">mq_receive.c</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Chen</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/blog/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/blog/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/blog/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/blog/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
