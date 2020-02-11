@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Binary TreeBinary Tree has the maximum depth of O(log n), where n is the number of Tree nodes.Binary Search Tree is a Binary Tree of which each node the left subtree’s values aresmaller than all right">
+<meta name="keywords" content="Data Structure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Binary Tree Related Algorithms">
+<meta property="og:url" content="https://princhenee.github.io/blog/2020/01/18/2020-01-18-Binary-Tree-Related-Programs/index.html">
+<meta property="og:site_name" content="Ge Chen&#39;s Blog">
+<meta property="og:description" content="Binary TreeBinary Tree has the maximum depth of O(log n), where n is the number of Tree nodes.Binary Search Tree is a Binary Tree of which each node the left subtree’s values aresmaller than all right">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-02-11T08:09:34.187Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Binary Tree Related Algorithms">
+<meta name="twitter:description" content="Binary TreeBinary Tree has the maximum depth of O(log n), where n is the number of Tree nodes.Binary Search Tree is a Binary Tree of which each node the left subtree’s values aresmaller than all right">
+
+
+
+
+
+
+  <link rel="canonical" href="https://princhenee.github.io/blog/2020/01/18/2020-01-18-Binary-Tree-Related-Programs/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Binary Tree Related Algorithms | Ge Chen's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ge Chen's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2020/01/18/2020-01-18-Binary-Tree-Related-Programs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Chen">
+      <meta itemprop="description" content="stay hungry stay foolish">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ge Chen's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Binary Tree Related Algorithms
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-18 14:40:52" itemprop="dateCreated datePublished" datetime="2020-01-18T14:40:52+08:00">2020-01-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-02-11 16:09:34" itemprop="dateModified" datetime="2020-02-11T16:09:34+08:00">2020-02-11</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h2><p>Binary Tree has the maximum depth of O(log n), where n is the number of Tree nodes.<br>Binary Search Tree is a Binary Tree of which each node the left subtree’s values are<br>smaller than all right subtree’s.  The search efficiency is generally better than linked list.</p>
+<h2 id="Implementations-in-C"><a href="#Implementations-in-C" class="headerlink" title="Implementations in C"></a>Implementations in C</h2><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Binary Tree node definition</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span> *<span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span> *<span class="title">right</span>;</span></span><br><span class="line">&#125; BinaryTreeNode;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Supplementary-Data-Structures"><a href="#Supplementary-Data-Structures" class="headerlink" title="Supplementary Data Structures"></a>Supplementary Data Structures</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Supplementary data structures to support the traversal non-recursively</span></span><br><span class="line"><span class="comment"> * ListNode: the unit of linked list, with create_node() and free_list()</span></span><br><span class="line"><span class="comment"> * Stack: a simple LIFO linked list, with push() and pop()</span></span><br><span class="line"><span class="comment"> * Queue: a simple FIFO linked list, with enqueue(), dequeue() and reverse_queue()</span></span><br><span class="line"><span class="comment"> * create_string() and create_tree_node() are used for Binary Tree Encode/Decode</span></span><br><span class="line"><span class="comment"> * stack_to_list() is used for finding lowest common ancestor of two nodes</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">void</span> *addr;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; ListNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Stack</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> size;</span><br><span class="line">    ListNode *head;</span><br><span class="line">&#125; Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Queue</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> size;</span><br><span class="line">    ListNode *head;</span><br><span class="line">    ListNode *tail;</span><br><span class="line">&#125; Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> *</span><br><span class="line">create_string(<span class="keyword">int</span> string_size)</span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">if</span> (string_size &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> *str = <span class="built_in">malloc</span>(string_size);</span><br><span class="line">    assert(str);</span><br><span class="line">    <span class="built_in">memset</span>(str, <span class="number">0</span>, string_size);</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ListNode *</span><br><span class="line">create_node(<span class="keyword">void</span> *addr)</span><br><span class="line">&#123;</span><br><span class="line">    ListNode *new_node = (ListNode *) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ListNode));</span><br><span class="line">    assert(new_node);</span><br><span class="line">    new_node-&gt;addr = addr;</span><br><span class="line">    new_node-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> new_node;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">free_list(ListNode *head)</span><br><span class="line">&#123;</span><br><span class="line">    ListNode *p, *q;</span><br><span class="line">    <span class="keyword">for</span> (p = head; p; p = q) &#123; </span><br><span class="line">        q = p-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(p);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BinaryTreeNode *</span><br><span class="line">create_tree_node(<span class="keyword">int</span> val)</span><br><span class="line">&#123;</span><br><span class="line">    BinaryTreeNode *new_tree_node = (BinaryTreeNode *) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BinaryTreeNode));</span><br><span class="line">    assert(new_tree_node);</span><br><span class="line">    new_tree_node-&gt;val = val;</span><br><span class="line">    new_tree_node-&gt;left = <span class="literal">NULL</span>;</span><br><span class="line">    new_tree_node-&gt;right = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> new_tree_node;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">push(Stack *<span class="built_in">stack</span>, ListNode *node_ptr)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == <span class="built_in">stack</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"null stack address!!\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    node_ptr-&gt;next =  <span class="built_in">stack</span>-&gt;head;</span><br><span class="line">    <span class="built_in">stack</span>-&gt;head = node_ptr;</span><br><span class="line">    <span class="built_in">stack</span>-&gt;size++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ListNode *</span><br><span class="line">pop(Stack *<span class="built_in">stack</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == <span class="built_in">stack</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"null stack address!!\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == <span class="built_in">stack</span>-&gt;size) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"empty stack!\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode *ret = <span class="built_in">stack</span>-&gt;head;</span><br><span class="line">    <span class="built_in">stack</span>-&gt;head = ret-&gt;next;</span><br><span class="line">    <span class="built_in">stack</span>-&gt;size--;</span><br><span class="line">    ret-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Convert a stack to list</span></span><br><span class="line"><span class="comment"> *  e.g.</span></span><br><span class="line"><span class="comment"> *      | 3 |</span></span><br><span class="line"><span class="comment"> *      |---|</span></span><br><span class="line"><span class="comment"> *      | 2 |  to  1 -&gt; 2 -&gt; 3 -&gt; NULL</span></span><br><span class="line"><span class="comment"> *      |---|</span></span><br><span class="line"><span class="comment"> *      |_1_|</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">ListNode *</span><br><span class="line">stack_to_list(Stack *<span class="built_in">stack</span>)</span><br><span class="line">&#123;</span><br><span class="line">    ListNode *cur_node, *head = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">stack</span>-&gt;size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = pop(<span class="built_in">stack</span>);</span><br><span class="line">        cur_node-&gt;next = head;</span><br><span class="line">        head = cur_node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">enqueue(Queue *<span class="built_in">queue</span>, ListNode *node_ptr)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == <span class="built_in">queue</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"null queue address!!\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == <span class="built_in">queue</span>-&gt;size) &#123;</span><br><span class="line">        <span class="built_in">queue</span>-&gt;head = node_ptr;</span><br><span class="line">        <span class="built_in">queue</span>-&gt;tail = node_ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">queue</span>-&gt;tail-&gt;next = node_ptr;</span><br><span class="line">        <span class="built_in">queue</span>-&gt;tail = node_ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">queue</span>-&gt;size++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ListNode *</span><br><span class="line">dequeue(Queue *<span class="built_in">queue</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == <span class="built_in">queue</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"null stack address!!\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == <span class="built_in">queue</span>-&gt;size) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"empty queue!\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode *ret = <span class="built_in">queue</span>-&gt;head;</span><br><span class="line">    <span class="built_in">queue</span>-&gt;head = ret-&gt;next;</span><br><span class="line">    ret-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">queue</span>-&gt;size--;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == <span class="built_in">queue</span>-&gt;size)</span><br><span class="line">        <span class="built_in">queue</span>-&gt;tail = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">reverse_queue(Queue *<span class="built_in">queue</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == <span class="built_in">queue</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"null stack address!!\n"</span>);</span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == <span class="built_in">queue</span>-&gt;size) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"empty queue!\n"</span>);</span><br><span class="line">    &#125;   </span><br><span class="line">    ListNode *tmp, *move = <span class="built_in">queue</span>-&gt;head;</span><br><span class="line">    <span class="built_in">queue</span>-&gt;tail = <span class="built_in">queue</span>-&gt;head;</span><br><span class="line">    <span class="built_in">queue</span>-&gt;head = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span> (move) &#123;</span><br><span class="line">        tmp = move-&gt;next;</span><br><span class="line">        move-&gt;next = <span class="built_in">queue</span>-&gt;head;</span><br><span class="line">        <span class="built_in">queue</span>-&gt;head = move;</span><br><span class="line">        move = tmp;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Traversal"><a href="#Traversal" class="headerlink" title="Traversal"></a>Traversal</h3><h4 id="Depth-First-Search"><a href="#Depth-First-Search" class="headerlink" title="Depth-First Search"></a>Depth-First Search</h4><h5 id="Pre-order-Traversal"><a href="#Pre-order-Traversal" class="headerlink" title="Pre-order Traversal"></a>Pre-order Traversal</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">pre_order_traverse_binary_tree(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d "</span>, root-&gt;val);</span><br><span class="line">    pre_order_traverse_binary_tree (root-&gt;left);</span><br><span class="line">    pre_order_traverse_binary_tree (root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">pre_order_traverse_binary_tree_non_recursive(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    Stack <span class="built_in">stack</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    BinaryTreeNode *move = root;</span><br><span class="line">    ListNode *new_node, *cur_node;</span><br><span class="line">    <span class="keyword">while</span> (move) &#123;</span><br><span class="line">        new_node = create_node(move);</span><br><span class="line">        push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, move-&gt;val);</span><br><span class="line">        move = move-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">stack</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = pop(&amp;<span class="built_in">stack</span>);</span><br><span class="line">        move = cur_node-&gt;addr;</span><br><span class="line">        <span class="built_in">free</span>(cur_node);</span><br><span class="line">        <span class="keyword">if</span> (move-&gt;right) &#123;</span><br><span class="line">            move = move-&gt;right;</span><br><span class="line">            <span class="keyword">while</span> (move) &#123;</span><br><span class="line">                new_node = create_node(move);</span><br><span class="line">                push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d "</span>, move-&gt;val);</span><br><span class="line">                move = move-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="In-order-Traversal"><a href="#In-order-Traversal" class="headerlink" title="In-order Traversal"></a>In-order Traversal</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">in_order_traverse_binary_tree(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line">    in_order_traverse_binary_tree(root-&gt;left);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d "</span>, root-&gt;val);</span><br><span class="line">    in_order_traverse_binary_tree(root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">in_order_traverse_binary_tree_non_recursive(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    Stack <span class="built_in">stack</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    BinaryTreeNode *move = root;</span><br><span class="line">    ListNode *new_node, *cur_node;</span><br><span class="line">    <span class="keyword">while</span> (move) &#123;</span><br><span class="line">        new_node = create_node(move);</span><br><span class="line">        push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">        move = move-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">stack</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = pop(&amp;<span class="built_in">stack</span>);</span><br><span class="line">        move = cur_node-&gt;addr;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, move-&gt;val);</span><br><span class="line">        <span class="built_in">free</span>(cur_node);</span><br><span class="line">        <span class="keyword">if</span> (move-&gt;right) &#123;</span><br><span class="line">            move = move-&gt;right;</span><br><span class="line">            <span class="keyword">while</span> (move) &#123;</span><br><span class="line">                new_node = create_node(move);</span><br><span class="line">                push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">                move = move-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Post-order-Traversal"><a href="#Post-order-Traversal" class="headerlink" title="Post-order Traversal"></a>Post-order Traversal</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">post_order_traverse_binary_tree(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line">    post_order_traverse_binary_tree(root-&gt;left);</span><br><span class="line">    post_order_traverse_binary_tree(root-&gt;right);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d "</span>, root-&gt;val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">post_order_traverse_binary_tree_non_recursive(BinaryTreeNode *root)</span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    Stack <span class="built_in">stack</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    BinaryTreeNode *move = root;</span><br><span class="line">    BinaryTreeNode *visited = <span class="literal">NULL</span>;</span><br><span class="line">    ListNode *new_node, *cur_node;</span><br><span class="line">    <span class="keyword">while</span> (move) &#123; </span><br><span class="line">        new_node = create_node(move);</span><br><span class="line">        push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">        move = move-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">stack</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = pop(&amp;<span class="built_in">stack</span>);</span><br><span class="line">        move = cur_node-&gt;addr;</span><br><span class="line">        <span class="keyword">if</span> (move-&gt;right &amp;&amp; move-&gt;right != visited) &#123;</span><br><span class="line">            push(&amp;<span class="built_in">stack</span>, cur_node);</span><br><span class="line">            move = move-&gt;right;</span><br><span class="line">            <span class="keyword">while</span> (move) &#123; </span><br><span class="line">                new_node = create_node(move);</span><br><span class="line">                push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">                move = move-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>, move-&gt;val);</span><br><span class="line">            visited = move;</span><br><span class="line">            move = <span class="literal">NULL</span>;    <span class="comment">// avoid repeated assignment</span></span><br><span class="line">            <span class="built_in">free</span>(cur_node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Breadth-First-Search"><a href="#Breadth-First-Search" class="headerlink" title="Breadth-First Search"></a>Breadth-First Search</h4><h5 id="Display-the-tree-row-by-row"><a href="#Display-the-tree-row-by-row" class="headerlink" title="Display the tree row by row"></a>Display the tree row by row</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">row_by_row_traverse_binary_tree(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    Queue <span class="built_in">queue</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    BinaryTreeNode *move;</span><br><span class="line">    ListNode *cur_node, *new_node = create_node(root);</span><br><span class="line">    enqueue(&amp;<span class="built_in">queue</span>, new_node);</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">queue</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = dequeue(&amp;<span class="built_in">queue</span>);</span><br><span class="line">        move = cur_node-&gt;addr;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, move-&gt;val);</span><br><span class="line">        <span class="built_in">free</span>(cur_node);</span><br><span class="line">        <span class="keyword">if</span> (move-&gt;left) &#123;</span><br><span class="line">            new_node = create_node(move-&gt;left);</span><br><span class="line">            enqueue(&amp;<span class="built_in">queue</span>, new_node);</span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="keyword">if</span> (move-&gt;right) &#123;</span><br><span class="line">            new_node = create_node(move-&gt;right);</span><br><span class="line">            enqueue(&amp;<span class="built_in">queue</span>, new_node);</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Display-the-tree-row-by-row-2"><a href="#Display-the-tree-row-by-row-2" class="headerlink" title="Display the tree row by row (2)"></a>Display the tree row by row (2)</h5><blockquote>
+<p>for odd row, print the nodes from left to right<br>for even row, print the nodes from right to left</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">odd_even_row_reversely_traverse_binary_tree(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    Queue odd_row = &#123;<span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>&#125;, even_row = &#123;<span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    BinaryTreeNode *move;</span><br><span class="line">    ListNode *cur_node, *new_node = create_node(root);</span><br><span class="line">    <span class="keyword">int</span> is_odd_row = <span class="number">1</span>;</span><br><span class="line">    enqueue(&amp;odd_row, new_node);</span><br><span class="line">    <span class="keyword">while</span> (odd_row.size &gt; <span class="number">0</span> || even_row.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (is_odd_row) &#123;</span><br><span class="line">            reverse_queue(&amp;odd_row);</span><br><span class="line">            <span class="keyword">while</span> (odd_row.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                cur_node = dequeue(&amp;odd_row);</span><br><span class="line">                move = (BinaryTreeNode *) (cur_node-&gt;addr);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d "</span>, move-&gt;val);</span><br><span class="line">                <span class="built_in">free</span>(cur_node);</span><br><span class="line">                <span class="keyword">if</span> (move-&gt;left) &#123;</span><br><span class="line">                    new_node = create_node(move-&gt;left);</span><br><span class="line">                    enqueue(&amp;even_row, new_node);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (move-&gt;right) &#123;</span><br><span class="line">                    new_node = create_node(move-&gt;right);</span><br><span class="line">                    enqueue(&amp;even_row, new_node);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            is_odd_row = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; <span class="comment">// even row</span></span><br><span class="line">            reverse_queue(&amp;even_row);</span><br><span class="line">            <span class="keyword">while</span> (even_row.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                cur_node = dequeue(&amp;even_row);</span><br><span class="line">                move = (BinaryTreeNode *) (cur_node-&gt;addr);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d "</span>, move-&gt;val);</span><br><span class="line">                <span class="built_in">free</span>(cur_node);</span><br><span class="line">                <span class="keyword">if</span> (move-&gt;right) &#123;</span><br><span class="line">                    new_node = create_node(move-&gt;right);</span><br><span class="line">                    enqueue(&amp;odd_row, new_node);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (move-&gt;left) &#123;</span><br><span class="line">                    new_node = create_node(move-&gt;left);</span><br><span class="line">                    enqueue(&amp;odd_row, new_node);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            is_odd_row = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h3><h4 id="leetcode-98-Validate-Binary-Search-Tree"><a href="#leetcode-98-Validate-Binary-Search-Tree" class="headerlink" title="leetcode-98. Validate Binary Search Tree"></a>leetcode-98. Validate Binary Search Tree</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span></span><br><span class="line">is_valid_BST(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    Stack <span class="built_in">stack</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    BinaryTreeNode *move = root;</span><br><span class="line">    ListNode *new_node, *cur_node;</span><br><span class="line">    <span class="keyword">int</span> prev_val, cur_val, is_start = <span class="number">1</span>, ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (move) &#123; </span><br><span class="line">        new_node = create_node(move);</span><br><span class="line">        push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">        move = move-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">stack</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = pop(&amp;<span class="built_in">stack</span>);</span><br><span class="line">        move = cur_node-&gt;addr;</span><br><span class="line">        cur_val = move-&gt;val;</span><br><span class="line">        <span class="built_in">free</span>(cur_node);</span><br><span class="line">        <span class="keyword">if</span> (is_start)</span><br><span class="line">            is_start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (cur_val &lt;= prev_val)</span><br><span class="line">            ret = <span class="number">0</span>;</span><br><span class="line">        prev_val = cur_val;</span><br><span class="line">        <span class="keyword">if</span> (move-&gt;right) &#123;</span><br><span class="line">            move = move-&gt;right;</span><br><span class="line">            <span class="keyword">while</span> (move) &#123; </span><br><span class="line">                new_node = create_node(move);</span><br><span class="line">                push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">                move = move-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="leetcode-101-Symmetric-Tree"><a href="#leetcode-101-Symmetric-Tree" class="headerlink" title="leetcode-101. Symmetric Tree"></a>leetcode-101. Symmetric Tree</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The following is a symmetric tree:</span></span><br><span class="line"><span class="comment"> *           1</span></span><br><span class="line"><span class="comment"> *          / \</span></span><br><span class="line"><span class="comment"> *         2   2</span></span><br><span class="line"><span class="comment"> *        / \ / \</span></span><br><span class="line"><span class="comment"> *       3  4 4  3</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The following is not a symmetric tree:</span></span><br><span class="line"><span class="comment"> *           1</span></span><br><span class="line"><span class="comment"> *          / \</span></span><br><span class="line"><span class="comment"> *         2   2</span></span><br><span class="line"><span class="comment"> *          \   \</span></span><br><span class="line"><span class="comment"> *          3    3</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">is_mirror_tree(BinaryTreeNode *t1, BinaryTreeNode *t2)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!t1 &amp;&amp; !t2) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> ((t1 &amp;&amp; !t2) || (!t1 &amp;&amp; t2)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> is_mirror_tree(t1-&gt;left, t2-&gt;right) &amp;&amp;</span><br><span class="line">            is_mirror_tree(t1-&gt;right, t2-&gt;left);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">is_symmetric_tree(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> is_mirror_tree(root-&gt;left, root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="leetcode-104-Maximum-Depth-of-Binary-Tree"><a href="#leetcode-104-Maximum-Depth-of-Binary-Tree" class="headerlink" title="leetcode-104. Maximum Depth of Binary Tree"></a>leetcode-104. Maximum Depth of Binary Tree</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">max_depth(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> max_left = max_depth(root-&gt;left);</span><br><span class="line">    <span class="keyword">int</span> max_right = max_depth(root-&gt;right);</span><br><span class="line">    <span class="keyword">return</span> max_left &gt; max_right? max_left + <span class="number">1</span> : max_right + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="leetcode-110-Balanced-Binary-Tree"><a href="#leetcode-110-Balanced-Binary-Tree" class="headerlink" title="leetcode-110. Balanced Binary Tree"></a>leetcode-110. Balanced Binary Tree</h4><blockquote>
+<p>Given a binary tree, determine if it is height-balanced.<br>For this problem, a height-balanced binary tree is defined as:<br>a binary tree in which the depth of the two subtrees of every node never differ by more than 1.</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">check_height(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> left = check_height(root-&gt;left);</span><br><span class="line">    <span class="keyword">int</span> right = check_height(root-&gt;right);</span><br><span class="line">    <span class="keyword">if</span> (left == <span class="number">-1</span> || right == <span class="number">-1</span>) </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>; </span><br><span class="line">    <span class="keyword">if</span> (left - right &gt; <span class="number">1</span> || right - left &gt; <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>; </span><br><span class="line">    <span class="keyword">return</span> left &gt; right ? left + <span class="number">1</span> : right + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">is_balanced_tree(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (check_height(root) == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Transformation"><a href="#Transformation" class="headerlink" title="Transformation"></a>Transformation</h3><h4 id="Binary-Tree-Encode-Decode"><a href="#Binary-Tree-Encode-Decode" class="headerlink" title="Binary Tree Encode/Decode"></a>Binary Tree Encode/Decode</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Encode Binary Tree to an encoded_string</span></span><br><span class="line"><span class="comment"> *   where the NULL child is encoded to '$'</span></span><br><span class="line"><span class="comment"> *   and all values are separated by ','</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">preorder_traverse_binary_tree(BinaryTreeNode *root, Queue *string_queue, <span class="keyword">int</span> *string_size)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">char</span> *str = create_string(<span class="number">3</span>);</span><br><span class="line">        str[<span class="number">0</span>] = <span class="string">'$'</span>;</span><br><span class="line">        str[<span class="number">1</span>] = <span class="string">','</span>;</span><br><span class="line">        ListNode *cur_node = create_node(str);</span><br><span class="line">        enqueue(string_queue, cur_node);</span><br><span class="line">        *string_size += <span class="built_in">strlen</span>(str);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">char</span> *str = create_string(<span class="number">16</span>);</span><br><span class="line">        <span class="built_in">sprintf</span>(str, <span class="string">"%d"</span>, root-&gt;val);</span><br><span class="line">        <span class="keyword">int</span> word_size = <span class="built_in">strlen</span>(str);</span><br><span class="line">        str[word_size] = <span class="string">','</span>;</span><br><span class="line">        ListNode *cur_node = create_node(str);</span><br><span class="line">        enqueue(string_queue, cur_node);</span><br><span class="line">        *string_size += <span class="built_in">strlen</span>(str);</span><br><span class="line">        <span class="comment">/* traverse left and right tree in sequence */</span></span><br><span class="line">        preorder_traverse_binary_tree(root-&gt;left, string_queue, string_size);</span><br><span class="line">        preorder_traverse_binary_tree(root-&gt;right, string_queue, string_size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> *</span><br><span class="line">encode_binary_tree(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    Queue string_queue = &#123;<span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> string_size = <span class="number">0</span>;</span><br><span class="line">    preorder_traverse_binary_tree(root, &amp;string_queue, &amp;string_size);</span><br><span class="line">    <span class="keyword">char</span> *encoded_string = create_string(string_size + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">char</span> *cur_word, *move = encoded_string;</span><br><span class="line">    ListNode *cur_node;</span><br><span class="line">    <span class="keyword">while</span> (string_queue.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = dequeue(&amp;string_queue);</span><br><span class="line">        cur_word = cur_node-&gt;addr;</span><br><span class="line">        <span class="built_in">strcpy</span>(move, cur_word);</span><br><span class="line">        move += <span class="built_in">strlen</span>(cur_word);</span><br><span class="line">        <span class="built_in">free</span>(cur_node);</span><br><span class="line">        <span class="built_in">free</span>(cur_word);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> encoded_string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Decode Binary Tree from encoded_string</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BinaryTreeNode *</span><br><span class="line">decode_binary_tree_from_string_queue(Queue *<span class="built_in">queue</span>)</span><br><span class="line">&#123;</span><br><span class="line">    BinaryTreeNode *root;</span><br><span class="line">    ListNode *cur_node;</span><br><span class="line">    <span class="keyword">char</span> *cur_word;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">queue</span>-&gt;size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = dequeue(<span class="built_in">queue</span>);</span><br><span class="line">        cur_word = (<span class="keyword">char</span> *) (cur_node-&gt;addr);</span><br><span class="line">        <span class="keyword">if</span> (cur_word[<span class="number">0</span>] == <span class="string">'$'</span>) &#123;</span><br><span class="line">            root = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> val = (<span class="keyword">int</span>) strtol(cur_word, (<span class="keyword">char</span> **)<span class="literal">NULL</span>, <span class="number">10</span>);</span><br><span class="line">            root = create_tree_node(val);</span><br><span class="line">            root-&gt;left  = decode_binary_tree_from_string_queue(<span class="built_in">queue</span>);</span><br><span class="line">            root-&gt;right = decode_binary_tree_from_string_queue(<span class="built_in">queue</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">free</span>(cur_node);</span><br><span class="line">        cur_node = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">convert_encoded_str_to_queue(<span class="keyword">char</span> *encoded_string, Queue *<span class="built_in">queue</span>)</span><br><span class="line">&#123;</span><br><span class="line">    ListNode *new_node;</span><br><span class="line">    <span class="keyword">char</span> *cur_word = strtok(encoded_string, <span class="string">","</span>);</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">NULL</span> != cur_word) &#123;</span><br><span class="line">        new_node = create_node(cur_word);</span><br><span class="line">        enqueue(<span class="built_in">queue</span>, new_node);</span><br><span class="line">        cur_word = strtok(<span class="literal">NULL</span>, <span class="string">","</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BinaryTreeNode *</span><br><span class="line">decode_binary_tree(<span class="keyword">char</span> *encoded_string)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!encoded_string) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    Queue <span class="built_in">queue</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    convert_encoded_str_to_queue(encoded_string, &amp;<span class="built_in">queue</span>);</span><br><span class="line">    <span class="keyword">return</span> decode_binary_tree_from_string_queue(&amp;<span class="built_in">queue</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="leetcode-114-Flatten-Binary-Tree-to-Linked-List"><a href="#leetcode-114-Flatten-Binary-Tree-to-Linked-List" class="headerlink" title="leetcode-114. Flatten Binary Tree to Linked List"></a>leetcode-114. Flatten Binary Tree to Linked List</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// An original Tree:</span></span><br><span class="line"><span class="comment">//        1</span></span><br><span class="line"><span class="comment">//       / \</span></span><br><span class="line"><span class="comment">//      2   5</span></span><br><span class="line"><span class="comment">//     / \   \</span></span><br><span class="line"><span class="comment">//    3   4   6</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// flattenned tree becomes:   </span></span><br><span class="line"><span class="comment">//    1</span></span><br><span class="line"><span class="comment">//     \</span></span><br><span class="line"><span class="comment">//      2</span></span><br><span class="line"><span class="comment">//       \</span></span><br><span class="line"><span class="comment">//        3</span></span><br><span class="line"><span class="comment">//         \</span></span><br><span class="line"><span class="comment">//          4</span></span><br><span class="line"><span class="comment">//           \</span></span><br><span class="line"><span class="comment">//            5</span></span><br><span class="line"><span class="comment">//             \</span></span><br><span class="line"><span class="comment">//              6</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">flatten(BinaryTreeNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    flatten(root-&gt;right);</span><br><span class="line">    flatten(root-&gt;left);</span><br><span class="line">    <span class="keyword">if</span> (root-&gt;left) &#123;</span><br><span class="line">        BinaryTreeNode *tmp = root-&gt;right;</span><br><span class="line">        root-&gt;right = root-&gt;left;</span><br><span class="line">        BinaryTreeNode *move = root-&gt;left;</span><br><span class="line">        root-&gt;left = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span> (move-&gt;right) &#123;</span><br><span class="line">            move = move-&gt;right;</span><br><span class="line">        &#125;   </span><br><span class="line">        move-&gt;right = tmp;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">flatten_non_recursively(BinaryTreeNode *root)</span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    BinaryTreeNode *last = <span class="literal">NULL</span>, *visited = <span class="literal">NULL</span>, *move = root;</span><br><span class="line">    ListNode *new_node, *cur_node;</span><br><span class="line">    Stack <span class="built_in">stack</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    <span class="keyword">while</span> (move) &#123; </span><br><span class="line">        new_node = create_node(move);</span><br><span class="line">        push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">        move = move-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">stack</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = pop(&amp;<span class="built_in">stack</span>);</span><br><span class="line">        move = cur_node-&gt;addr;</span><br><span class="line">        <span class="keyword">if</span> (move-&gt;left &amp;&amp; move-&gt;left != visited) &#123;</span><br><span class="line">            push(&amp;<span class="built_in">stack</span>, cur_node);</span><br><span class="line">            move = move-&gt;left;</span><br><span class="line">            <span class="keyword">while</span> (move) &#123; </span><br><span class="line">                new_node = create_node(move);</span><br><span class="line">                push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">                move = move-&gt;right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            move-&gt;right = last;</span><br><span class="line">            move-&gt;left = <span class="literal">NULL</span>;</span><br><span class="line">            last = move;</span><br><span class="line">            visited = move;</span><br><span class="line">            move = <span class="literal">NULL</span>;  <span class="comment">// avoid repeated assignment</span></span><br><span class="line">            <span class="built_in">free</span>(cur_node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Element-location"><a href="#Element-location" class="headerlink" title="Element location"></a>Element location</h3><h4 id="leetcode-230-Kth-Smallest-Element-in-a-BST"><a href="#leetcode-230-Kth-Smallest-Element-in-a-BST" class="headerlink" title="leetcode-230. Kth Smallest Element in a BST"></a>leetcode-230. Kth Smallest Element in a BST</h4><blockquote>
+<p>Assume all values in Binary Search Tree are positive integers<br>Return -1 if not found</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Recursively search the left subtree, then current root node</span></span><br><span class="line"><span class="comment"> *     and finally the right subtree</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">kth_smallest_bst_recursion(BinaryTreeNode *root, <span class="keyword">int</span> *K) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">-1</span>; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> val = kth_smallest_bst_recursion(root-&gt;left, K); </span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == *K) <span class="keyword">return</span> val;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == --*K) <span class="keyword">return</span> root-&gt;val;</span><br><span class="line">    <span class="keyword">return</span> kth_smallest_bst_recursion(root-&gt;right, K); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">find_kth_smallest_in_bst(BinaryTreeNode *root, <span class="keyword">int</span> k)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root || k &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>; </span><br><span class="line">    <span class="keyword">int</span> *K = &amp;k; </span><br><span class="line">    <span class="keyword">return</span> kth_smallest_bst_recursion(root, K); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Non-recursively do in-order traversal until kth node</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">find_kth_smallest_in_bst_non_recursively(BinaryTreeNode *root, <span class="keyword">int</span> k)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root || k &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>; </span><br><span class="line"></span><br><span class="line">    Stack <span class="built_in">stack</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    BinaryTreeNode *move = root;</span><br><span class="line">    ListNode *new_node, *cur_node;</span><br><span class="line">    <span class="keyword">while</span> (move) &#123;</span><br><span class="line">        new_node = create_node(move);</span><br><span class="line">        push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">        move = move-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">stack</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = pop(&amp;<span class="built_in">stack</span>);</span><br><span class="line">        move = cur_node-&gt;addr;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">1</span> == k--) <span class="keyword">break</span>;</span><br><span class="line">        <span class="built_in">free</span>(cur_node);</span><br><span class="line">        <span class="keyword">if</span> (move-&gt;right) &#123;</span><br><span class="line">            move = move-&gt;right;</span><br><span class="line">            <span class="keyword">while</span> (move) &#123;</span><br><span class="line">                new_node = create_node(move);</span><br><span class="line">                push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">                move = move-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == k) &#123;</span><br><span class="line">        <span class="comment">/* clear remaining nodes in stack */</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">stack</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            cur_node = pop(&amp;<span class="built_in">stack</span>);</span><br><span class="line">            <span class="built_in">free</span>(cur_node);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> move-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="leetcode-236-Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#leetcode-236-Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="leetcode-236. Lowest Common Ancestor of a Binary Tree"></a>leetcode-236. Lowest Common Ancestor of a Binary Tree</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * help function `find_path_to_tree_node`</span></span><br><span class="line"><span class="comment"> *   using post-order traversal to find the path from root to</span></span><br><span class="line"><span class="comment"> *   a give tree node</span></span><br><span class="line"><span class="comment"> * the following are implementations with and without recursion</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @return a linked list of BinaryTreeNode, NULL if not found</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">ListNode *</span><br><span class="line">find_path_to_tree_node(BinaryTreeNode *root, BinaryTreeNode *node)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root || !node) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    ListNode *new_node = create_node(root);</span><br><span class="line">    <span class="keyword">if</span> (root == node) &#123;</span><br><span class="line">        <span class="keyword">return</span> new_node;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode *path = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> != (path = find_path_to_tree_node(root-&gt;left, node))) &#123;</span><br><span class="line">        new_node-&gt;next = path;</span><br><span class="line">        <span class="keyword">return</span> new_node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> != (path = find_path_to_tree_node(root-&gt;right, node))) &#123;</span><br><span class="line">        new_node-&gt;next = path;</span><br><span class="line">        <span class="keyword">return</span> new_node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(new_node);</span><br><span class="line">    new_node = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ListNode *</span><br><span class="line">find_path_to_tree_node_non_recursive(BinaryTreeNode *root, BinaryTreeNode *node)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root || !node) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    ListNode *path = <span class="literal">NULL</span>;</span><br><span class="line">    Stack <span class="built_in">stack</span> = &#123;<span class="number">0</span>, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    BinaryTreeNode *move = root;</span><br><span class="line">    BinaryTreeNode *visited = <span class="literal">NULL</span>;</span><br><span class="line">    ListNode *new_node, *cur_node;</span><br><span class="line">    <span class="keyword">while</span> (move) &#123; </span><br><span class="line">        new_node = create_node(move);</span><br><span class="line">        push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">        <span class="keyword">if</span> (move == node)</span><br><span class="line">            <span class="keyword">return</span> stack_to_list(&amp;<span class="built_in">stack</span>);</span><br><span class="line">        move = move-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">stack</span>.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        cur_node = pop(&amp;<span class="built_in">stack</span>);</span><br><span class="line">        move = cur_node-&gt;addr;</span><br><span class="line">        <span class="keyword">if</span> (move-&gt;right &amp;&amp; move-&gt;right != visited) &#123;</span><br><span class="line">            push(&amp;<span class="built_in">stack</span>, cur_node);</span><br><span class="line">            move = move-&gt;right;</span><br><span class="line">            <span class="keyword">while</span> (move) &#123;</span><br><span class="line">                new_node = create_node(move);</span><br><span class="line">                push(&amp;<span class="built_in">stack</span>, new_node);</span><br><span class="line">                <span class="keyword">if</span> (move == node) </span><br><span class="line">                    <span class="keyword">return</span> stack_to_list(&amp;<span class="built_in">stack</span>);</span><br><span class="line">                move = move-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            visited = move;</span><br><span class="line">            move = <span class="literal">NULL</span>;  <span class="comment">// avoid repeated assignment</span></span><br><span class="line">            <span class="built_in">free</span>(cur_node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1. find the paths from root to both tree nodes</span></span><br><span class="line"><span class="comment"> * 2. move two paths simultanaously till diverge</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BinaryTreeNode *</span><br><span class="line">find_lowest_common_ancestor(BinaryTreeNode *root, BinaryTreeNode *node1, BinaryTreeNode *node2)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root || !node1 || !node2) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    BinaryTreeNode *ancestor = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** This step can do recursively</span></span><br><span class="line"><span class="comment">     *    ListNode *head1 = find_path_to_tree_node(root, node1);</span></span><br><span class="line"><span class="comment">     *    ListNode *head2 = find_path_to_tree_node(root, node2);</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ListNode *head1 = find_path_to_tree_node_non_recursive(root, node1);</span><br><span class="line">    ListNode *head2 = find_path_to_tree_node_non_recursive(root, node2);</span><br><span class="line">    ListNode *move1 = head1, *move2 = head2;</span><br><span class="line">    <span class="keyword">while</span> (move1 &amp;&amp; move2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (move1-&gt;addr != move2-&gt;addr)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        ancestor = (BinaryTreeNode *) move1-&gt;addr;</span><br><span class="line">        move1 = move1-&gt;next;</span><br><span class="line">        move2 = move2-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    free_list(head1);</span><br><span class="line">    free_list(head2);</span><br><span class="line">    <span class="keyword">return</span> ancestor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Data-Structure/" rel="tag"># Data Structure</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/11/20/2019-11-20-An-Implementation-of-Posix-Message-Queue/" rel="next" title="An Implementation of Posix Message Queue">
+                <i class="fa fa-chevron-left"></i> An Implementation of Posix Message Queue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ge Chen</p>
+              <div class="site-description motion-element" itemprop="description">stay hungry stay foolish</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/blog/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/princhenee" title="GitHub &rarr; https://github.com/princhenee" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binary-Tree"><span class="nav-text">Binary Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementations-in-C"><span class="nav-text">Implementations in C</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Definition"><span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Supplementary-Data-Structures"><span class="nav-text">Supplementary Data Structures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Traversal"><span class="nav-text">Traversal</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Depth-First-Search"><span class="nav-text">Depth-First Search</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pre-order-Traversal"><span class="nav-text">Pre-order Traversal</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#In-order-Traversal"><span class="nav-text">In-order Traversal</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Post-order-Traversal"><span class="nav-text">Post-order Traversal</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Breadth-First-Search"><span class="nav-text">Breadth-First Search</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Display-the-tree-row-by-row"><span class="nav-text">Display the tree row by row</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Display-the-tree-row-by-row-2"><span class="nav-text">Display the tree row by row (2)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Property"><span class="nav-text">Property</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#leetcode-98-Validate-Binary-Search-Tree"><span class="nav-text">leetcode-98. Validate Binary Search Tree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leetcode-101-Symmetric-Tree"><span class="nav-text">leetcode-101. Symmetric Tree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leetcode-104-Maximum-Depth-of-Binary-Tree"><span class="nav-text">leetcode-104. Maximum Depth of Binary Tree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leetcode-110-Balanced-Binary-Tree"><span class="nav-text">leetcode-110. Balanced Binary Tree</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transformation"><span class="nav-text">Transformation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Binary-Tree-Encode-Decode"><span class="nav-text">Binary Tree Encode/Decode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leetcode-114-Flatten-Binary-Tree-to-Linked-List"><span class="nav-text">leetcode-114. Flatten Binary Tree to Linked List</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element-location"><span class="nav-text">Element location</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#leetcode-230-Kth-Smallest-Element-in-a-BST"><span class="nav-text">leetcode-230. Kth Smallest Element in a BST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leetcode-236-Lowest-Common-Ancestor-of-a-Binary-Tree"><span class="nav-text">leetcode-236. Lowest Common Ancestor of a Binary Tree</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ge Chen</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/blog/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/blog/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/blog/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/blog/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
