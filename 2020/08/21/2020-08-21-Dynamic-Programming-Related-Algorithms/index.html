@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
-<meta name="keywords" content="NSDI,Flow Scheduling">
+  <meta name="description" content="Dynamic Programming (DP)Linear DPleetcode-300. Longest Increasing Subsequence123456789101112131415161718192021222324252627282930313233/** * Given an unsorted array of integers, find the length of long">
+<meta name="keywords" content="Algorithm,Data Structure">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Review - Is advance knowledge of flow sizes a plausible assumption?">
-<meta property="og:url" content="https://princhenee.github.io/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/index.html">
+<meta property="og:title" content="Dynamic Programming Related Algorithms">
+<meta property="og:url" content="https://princhenee.github.io/blog/2020/08/21/2020-08-21-Dynamic-Programming-Related-Algorithms/index.html">
 <meta property="og:site_name" content="Ge Chen&#39;s Blog">
-<meta property="og:description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
+<meta property="og:description" content="Dynamic Programming (DP)Linear DPleetcode-300. Longest Increasing Subsequence123456789101112131415161718192021222324252627282930313233/** * Given an unsorted array of integers, find the length of long">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-12T07:59:34.891Z">
+<meta property="og:updated_time" content="2020-08-21T03:19:14.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Review - Is advance knowledge of flow sizes a plausible assumption?">
-<meta name="twitter:description" content="Summary the paperThis work presents FLUX, a framework applying both simple heuristics and machinelearning methods to estimate the flows’ sizes in advance. Evaluations show thateven simple heuristics c">
+<meta name="twitter:title" content="Dynamic Programming Related Algorithms">
+<meta name="twitter:description" content="Dynamic Programming (DP)Linear DPleetcode-300. Longest Increasing Subsequence123456789101112131415161718192021222324252627282930313233/** * Given an unsorted array of integers, find the length of long">
 
 
 
 
 
 
-  <link rel="canonical" href="https://princhenee.github.io/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/">
+  <link rel="canonical" href="https://princhenee.github.io/blog/2020/08/21/2020-08-21-Dynamic-Programming-Related-Algorithms/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Review - Is advance knowledge of flow sizes a plausible assumption? | Ge Chen's Blog</title>
+  <title>Dynamic Programming Related Algorithms | Ge Chen's Blog</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/03/26/Review-Is-advance-knowledge-of-flow-sizes-a-plausible-assumption/">
+    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2020/08/21/2020-08-21-Dynamic-Programming-Related-Algorithms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ge Chen">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Review - Is advance knowledge of flow sizes a plausible assumption?
+          <h1 class="post-title" itemprop="name headline">Dynamic Programming Related Algorithms
 
               
             
@@ -349,46 +349,16 @@
                 
               
 
-              <time title="Created: 2019-03-26 16:17:59" itemprop="dateCreated datePublished" datetime="2019-03-26T16:17:59+08:00">2019-03-26</time>
+              <time title="Created: 2020-08-21 14:40:52 / Modified: 11:19:14" itemprop="dateCreated datePublished" datetime="2020-08-21T14:40:52+08:00">2020-08-21</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-12 15:59:34" itemprop="dateModified" datetime="2019-10-12T15:59:34+08:00">2019-10-12</time>
               
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Paper-Review/" itemprop="url" rel="index"><span itemprop="name">Paper Review</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -418,23 +388,8 @@
       
 
       
-        <h3 id="Summary-the-paper"><a href="#Summary-the-paper" class="headerlink" title="Summary the paper"></a>Summary the paper</h3><p>This work presents FLUX, a framework applying both simple heuristics and machine<br>learning methods to estimate the flows’ sizes in advance. Evaluations show that<br>even simple heuristics can achieve high estimation precision and the partial knowledge<br>aquired by FLUX can benefit a number of flow scheduling for data center networks.</p>
-<h3 id="What-motivates-the-work"><a href="#What-motivates-the-work" class="headerlink" title="What motivates the work"></a>What motivates the work</h3><p>To better achieve SLAs in data center networks, a number of flow scheduling mechanisms<br>have been proposed. Among these works, some (e.g. pFabric, PDQ, D3, FastPass, pHost,<br>Homa, Varys) assume the full knowledge of flow/coflow sizes, while others (e.g. PIAS,<br>Aalo) schedule flows without such knowledge, claiming to sacrifice certain performance<br>to benefit and scale deployment.</p>
+        <h2 id="Dynamic-Programming-DP"><a href="#Dynamic-Programming-DP" class="headerlink" title="Dynamic Programming (DP)"></a>Dynamic Programming (DP)</h2><h3 id="Linear-DP"><a href="#Linear-DP" class="headerlink" title="Linear DP"></a>Linear DP</h3><h4 id="leetcode-300-Longest-Increasing-Subsequence"><a href="#leetcode-300-Longest-Increasing-Subsequence" class="headerlink" title="leetcode-300. Longest Increasing Subsequence"></a>leetcode-300. Longest Increasing Subsequence</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Given an unsorted array of integers, find the length of longest increasing subsequence.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">lengthOfLIS(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numSize)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> &gt;= numsSize)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* cache[i] is the lengthOfLIS of sub-array nums[0::i]*/</span></span><br><span class="line">    <span class="keyword">int</span>* cache = <span class="built_in">malloc</span>(numsSize * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == cache)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numsSize; ++i)</span><br><span class="line">        cache[i] = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> LIS_length = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; numsSize; ++j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; j; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &lt; nums[j]) &#123;</span><br><span class="line">                <span class="keyword">int</span> tmp = cache[i] + <span class="number">1</span>;</span><br><span class="line">                cache[j] = tmp &gt; cache[j] ? tmp : cache[j];</span><br><span class="line">                LIS_length = tmp &gt; LIS_length ? tmp : LIS_length;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">free</span>(cache);</span><br><span class="line">	cache = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> LIS_length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>This work starts by questioning whether flow sizes can be known in advance in practice.<br>Based on the partial knowledge, authors also study the performance gain in the aspect<br>of flow scheduling policy. They argue that flow size estimation can guide scheduler<br>designs with partial knowledge settings and also help measure the efficiency budget.</p>
-<h3 id="How-FLUX-works"><a href="#How-FLUX-works" class="headerlink" title="How FLUX works"></a>How FLUX works</h3><p>After comparing existing solutions (e.g. flow aging, tcp buffer occupancy, system call<br>monitoring), FLUX chooses to learn flow sizes from past traces. The reason is that<br>a majority of jobs running in data center network are periodic and thus have predictable<br>patterns. The challenge is how to get estimation within a short timescale (microsecond).</p>
-<p>FLUX gathers a set of campus-scale workloads (Apache Tomcat server, TensorFlow, PageRank,<br>Spark) as traces. Taking features such as start time, flow gap, CPU, Disk I/O, Memory<br>I/O, FLUX learns flow size models by several ML models (RNN, GBDT). The authors claim<br>that these learning results achieve good precision. By applying the knowledge to<br>scheduler, average mean FCTs can be reduced. This work also mention a counter-intuitive<br>fact that the knowledge of flow sizes does not always improve performance. That is to<br>say, sometimes the higher percentage of knowledge predicted, the worse performance.</p>
-<h3 id="Strengths"><a href="#Strengths" class="headerlink" title="Strengths"></a>Strengths</h3><ul>
-<li>In-depth critical analysis on existing work</li>
-<li>Detailed implementation/tests (self-generated campus traces, full comparisons)</li>
-</ul>
-<h3 id="Weaknesses"><a href="#Weaknesses" class="headerlink" title="Weaknesses"></a>Weaknesses</h3><ul>
-<li>the theoritical part is not coherent</li>
-<li>feature selection unclear, are the features normalized or not</li>
-<li>limited use only in periodic job patterns, cannot handle bursts</li>
-<li>mean FCT is not a good indicator, please check the tail (99th) FCT</li>
-</ul>
-<p>Ref: <a href="https://www.usenix.org/conference/nsdi19/presentation/dukic" target="_blank" rel="noopener">Is advance knowledge of flow sizes a plausible assumption? </a></p>
 
       
     </div>
@@ -458,9 +413,9 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/NSDI/" rel="tag"># NSDI</a>
+            <a href="/blog/tags/Algorithm/" rel="tag"># Algorithm</a>
           
-            <a href="/blog/tags/Flow-Scheduling/" rel="tag"># Flow Scheduling</a>
+            <a href="/blog/tags/Data-Structure/" rel="tag"># Data Structure</a>
           
         </div>
       
@@ -473,15 +428,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/blog/2020/03/14/2020-03-14-A-Search-Bar-Input-Autocomplete-Implementation/" rel="next" title="A Search Bar Input Autocomplete Implementation">
+                <i class="fa fa-chevron-left"></i> A Search Bar Input Autocomplete Implementation
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/03/28/Survey-Network-Application-Protocol-Offloading/" rel="prev" title="Survey: Network Application/Protocol Offloading">
-                Survey: Network Application/Protocol Offloading <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -673,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary-the-paper"><span class="nav-text">Summary the paper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-motivates-the-work"><span class="nav-text">What motivates the work</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-FLUX-works"><span class="nav-text">How FLUX works</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strengths"><span class="nav-text">Strengths</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weaknesses"><span class="nav-text">Weaknesses</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Programming-DP"><span class="nav-text">Dynamic Programming (DP)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-DP"><span class="nav-text">Linear DP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#leetcode-300-Longest-Increasing-Subsequence"><span class="nav-text">leetcode-300. Longest Increasing Subsequence</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
