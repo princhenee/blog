@@ -305,6 +305,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2020/08/21/2020-09-12-Singleton-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ge Chen">
+      <meta itemprop="description" content="stay hungry stay foolish">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ge Chen's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2020/08/21/2020-09-12-Singleton-Pattern/" class="post-title-link" itemprop="url">Singleton Pattern</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-08-21 14:40:52" itemprop="dateCreated datePublished" datetime="2020-08-21T14:40:52+08:00">2020-08-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-09-12 11:09:34" itemprop="dateModified" datetime="2020-09-12T11:09:34+08:00">2020-09-12</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="Why-Singleton-pattern"><a href="#Why-Singleton-pattern" class="headerlink" title="Why Singleton pattern?"></a>Why Singleton pattern?</h3><p>There are cases where we need only a unique instance of the class. Examples are threadpool,<br>cache, dialogue, registry, log, device driver, system monitor, etc. If we create more than<br>one instances, the consequece may be abnormal program behavior, data inconsistency or resource<br>wastes. Therefore, Singleton Pattern is necessary to create a unique instance.</p>
+<h3 id="What’s-the-difference-with-Global-Variable-Object"><a href="#What’s-the-difference-with-Global-Variable-Object" class="headerlink" title="What’s the difference with Global Variable/Object?"></a>What’s the difference with Global Variable/Object?</h3><p>If we use global object to solve the uniqueness problem, then we need to create an instance<br>every time before the program. Sometimes we may not need to create the instance, so global<br>object can be a waste of resource.</p>
+<h3 id="Implementation-in-Java"><a href="#Implementation-in-Java" class="headerlink" title="Implementation in Java"></a>Implementation in Java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Eager Initialization</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Pros:</span></span><br><span class="line"><span class="comment"> * 1. Very simple to implement.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Cons:</span></span><br><span class="line"><span class="comment"> * 1. May lead to resource wastage. Because instance of class is created always, whether it is required or not.</span></span><br><span class="line"><span class="comment"> * 2. CPU time is also wasted in creation of instance if it is not required.</span></span><br><span class="line"><span class="comment"> * 3. Exception handling is not possible.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton uniqueInstance = <span class="keyword">new</span> Singleton();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> uniqueInstance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/blog/2020/08/21/2020-09-12-Singleton-Pattern/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2020/08/21/2020-08-21-Dynamic-Programming-Related-Algorithms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -367,7 +530,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-08-31 11:50:39" itemprop="dateModified" datetime="2020-08-31T11:50:39+08:00">2020-08-31</time>
+                <time title="Modified: 2020-09-11 10:47:26" itemprop="dateModified" datetime="2020-09-11T10:47:26+08:00">2020-09-11</time>
               
             
           </span>
@@ -1771,188 +1934,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://princhenee.github.io/blog/blog/2019/04/08/Technical-Links/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ge Chen">
-      <meta itemprop="description" content="stay hungry stay foolish">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ge Chen's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/04/08/Technical-Links/" class="post-title-link" itemprop="url">Technical Links</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-08 20:29:34" itemprop="dateCreated datePublished" datetime="2019-04-08T20:29:34+08:00">2019-04-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-03-10 10:32:40" itemprop="dateModified" datetime="2020-03-10T10:32:40+08:00">2020-03-10</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><a href="http://vger.kernel.org/~davem/tcp_output.html" target="_blank" rel="noopener">How the Linux TCP output engine works</a></p>
-<h3 id="C-C"><a href="#C-C" class="headerlink" title="C/C++"></a>C/C++</h3><p><a href="https://github.com/EZLippi/WebBench" target="_blank" rel="noopener">WebBench</a><br><a href="https://github.com/rxi/dyad/blob/master/src/dyad.c" target="_blank" rel="noopener">Dyrad.c</a></p>
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><p><a href="https://github.com/gsjqwyl/JavaInterview" target="_blank" rel="noopener">Interview Q&amp;A</a></p>
-<h3 id="projects"><a href="#projects" class="headerlink" title="projects"></a>projects</h3><p><a href="https://github.com/danistefanovic/build-your-own-x" target="_blank" rel="noopener">mini-projects</a><br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/blog/2019/04/08/Technical-Links/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1999,7 +1980,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2069,7 +2050,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2133,7 +2116,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

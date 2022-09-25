@@ -1227,7 +1227,7 @@ pre .javascript .function {
 .post-body .image-caption,
 .post-body .figure .caption {
   margin: -20px auto 15px;
-  text-align: center;
+  text-align: justify;
   font-size: 14px;
   color: #999;
   font-weight: bold;
@@ -1760,7 +1760,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff34cc;
+  background: #4ac6fc;
 }
 .feed-link,
 .chat {
